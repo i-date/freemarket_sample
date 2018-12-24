@@ -8,6 +8,14 @@
 |email|string|null: false|
 |password|string|---|
 |profile|text|---|
+|last_name|string|null: false|
+|first_name|string|null: false|
+|last_name_kana|string|null: false|
+|first_name_kana|string|null: false|
+|birth_year|integer|null: false|
+|birth_month|integer|null: false|
+|birth_day|integer|null: false|
+|phone_number|integer|null: false, unique: true|
 
 ### Association
 - has_many :comments
@@ -17,24 +25,6 @@
 - has_many :trading_partners
 - has_one :addresses
 - has_one :credit_cards
-- has_one :user_details
-
-## user_detailsテーブル
-
-|Column|Type|Options|
-|------|----|-------|
-|last_name|string|null: false|
-|first_name|string|null: false|
-|last_name_kana|string|null: false|
-|first_name_kana|string|null: false|
-|birth_year|integer|null: false|
-|birth_month|integer|null: false|
-|birth_day|integer|null: false|
-|phone_number|integer|null: false, unique: true|
-|user_id|references|null: false, index: true, foreign_key: true|
-
-### Association
-- belongs_to :user
 
 ## addressesテーブル
 
