@@ -48,6 +48,7 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'faker'
   gem 'factory_bot_rails'
+  gem 'database_cleaner'
   gem 'pry-rails'
   gem 'pry-byebug'
 end
