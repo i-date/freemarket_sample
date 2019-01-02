@@ -79,3 +79,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise'
 gem "haml-rails", "~> 1.0"
+gem 'font-awesome-sass', '~> 5.5.0'
