@@ -6,3 +6,52 @@
     clear  : both;
   }
 }
+
+@mixin flex-horizontal-center {
+  display        : flex;
+  justify-content: center;
+}
+
+@mixin flex-vertical-center {
+  display    : flex;
+  align-items: center;
+}
+
+@mixin header-item-nav {
+  float      : left;
+  height     : 100%;
+  padding-top: 6px;
+  font-size  : 14px;
+  color      : $black;
+
+  &:hover {
+    color: $light-blue;
+  }
+}
+
+@mixin header-user-nav-before-login {
+  float        : right;
+  height       : 100%;
+  padding      : 0 10px;
+  border-radius: 4px;
+  font-size    : 14px;
+  @include flex-vertical-center;
+}
+
+@mixin header-user-nav-after-login {
+  float      : right;
+  margin-left: 16px;
+  padding-top: 2px;
+  color      : $black;
+  @include flex-vertical-center;
+
+  &:hover {
+    color: $light-blue;
+  }
+
+  span {
+    margin-left: 8px;
+    font-size  : 14px;
+    line-height: 32px;
+  }
+}
