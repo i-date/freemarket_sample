@@ -2,10 +2,20 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title FreemarketSample
+    %title メルカリ スマホでかんたん フリマアプリ
+    = favicon_link_tag('common/favicon.ico')
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
+    %header.header
+      = render partial: "partial/header"
+
     = yield
+
+    .banner
+      = render partial: "partial/banner"
+
+    %footer.footer
+      = render partial: "partial/footer"
