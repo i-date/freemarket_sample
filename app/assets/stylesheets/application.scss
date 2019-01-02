@@ -7,3 +7,6 @@
 @import "mixin/mixin";
 
 // 個別ビューに対応するscssをインポート
+@import "modules/header";
+@import "modules/footer";
+@import "modules/banner";
