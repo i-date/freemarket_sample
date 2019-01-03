@@ -7,7 +7,7 @@
     .card__body
       %h3.card__body__head アイテムアイテムアイテムアイテムアイテムアイテムアイテムアイテムアイテムアイテムアイテムアイテムアイテム
       .card__body__content
-        .card__body__content__price &yen; 1000
+        .card__body__content__price= "¥ #{number_with_delimiter(1000)}"
         .card__body__content__like
           %i.far.fa-heart
           %span 2
