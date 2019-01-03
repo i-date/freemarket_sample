@@ -1,0 +1,11 @@
+.banner__container
+  .banner__container--left
+    %h2 スマホでかんたんフリマアプリ
+    %p 今すぐ無料ダウンロード！
+    .banner__container--left__icon
+      = image_tag 'common/custom-banner-icon.png', alt: 'app-logo', class: 'banner__container--left__icon__app', height: '68', width: '68'
+      = link_to '#' do
+        = image_tag 'common/app-store.svg', alt: 'app-store-logo', class: 'banner__container--left__icon__app-store', height: '40', width: '133'
+      = link_to '#' do
+        = image_tag 'common/google-play.svg', alt: 'google-play-logo', class: 'banner__container--left__icon__google-play', height: '40', width: '133'
+  = image_tag 'common/content_pc.png', alt: 'logo', class: 'banner__container--right', height: '260', width: '297'
