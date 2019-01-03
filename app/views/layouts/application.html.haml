@@ -2,7 +2,7 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title メルカリ スマホでかんたん フリマアプリ
+    %title= yield :title
     = favicon_link_tag('common/favicon.ico')
     = csrf_meta_tags
     = csp_meta_tag
@@ -12,7 +12,11 @@
     %header.header
       = render partial: "partial/header"
 
-    = yield
+    = yield :slide
+
+    %main.main
+      .main__container
+        = yield
 
     .banner
       = render partial: "partial/banner"
