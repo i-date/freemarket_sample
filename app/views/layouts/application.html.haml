@@ -2,7 +2,7 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title= yield :title
+    %title= content_for?(:title) ? yield(:title) : "メルカリ サンプル"
     = favicon_link_tag('common/favicon.ico')
     = csrf_meta_tags
     = csp_meta_tag
