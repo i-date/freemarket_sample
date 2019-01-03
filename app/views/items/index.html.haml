@@ -25,6 +25,13 @@
     .swiper-button-prev
     .swiper-button-next
 
+.pickup
+  %h2.pickup-top ピックアップカテゴリー
+  = render partial: 'partial/item-top', locals: { word: 'カテゴリー' }
+
+.pickup
+  %h2.pickup-top ピックアップブランド
+  = render partial: 'partial/item-top', locals: { word: 'ブランド' }
 
 :javascript
   var swiper = new Swiper('.swiper-container', {
