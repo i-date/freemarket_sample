@@ -15,11 +15,12 @@
     = yield :slide
 
     %main.main
-      .main__container
-        = yield
+      = yield
 
     .banner
       = render partial: "partial/banner"
 
     %footer.footer
       = render partial: "partial/footer"
+
+    = render partial: "partial/sell-btn"
