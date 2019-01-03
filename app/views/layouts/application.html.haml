@@ -9,18 +9,19 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
+    -# ヘッダー
     %header.header
       = render partial: "partial/header"
-
+    -# バナースライド
     = yield :slide
-
+    -# メインコンテンツ
     %main.main
       = yield
-
+    -# バナー
     .banner
       = render partial: "partial/banner"
-
+    -# フッター
     %footer.footer
       = render partial: "partial/footer"
-
+    -# 出品ボタン
     = render partial: "partial/sell-btn"

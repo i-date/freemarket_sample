@@ -1,5 +1,7 @@
+-# ページタイトル
 - content_for(:title) { 'メルカリ スマホでかんたん フリマアプリ' }
 
+-# メインスライド（Swiperで実装）
 - content_for(:slide) do
   .swiper-container
     .swiper-wrapper
@@ -25,6 +27,7 @@
     .swiper-button-prev
     .swiper-button-next
 
+-# コンテンツ
 .pickup
   %h2.pickup-top ピックアップカテゴリー
   = render partial: 'partial/item-top', locals: { word: 'カテゴリー' }
@@ -33,6 +36,7 @@
   %h2.pickup-top ピックアップブランド
   = render partial: 'partial/item-top', locals: { word: 'ブランド' }
 
+-# メインスライド用JS（Swiperで実装）
 :javascript
   var swiper = new Swiper('.swiper-container', {
     navigation: {
