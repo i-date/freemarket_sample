@@ -1,0 +1,12 @@
+- 4.times do
+  = link_to '#', class: 'card' do
+    .card__photo
+      = image_tag 'https://picsum.photos/213/220?image=528', alt: ''
+    .card__body
+      %h3.card__body__head アイテムアイテムアイテムアイテムアイテムアイテムアイテムアイテムアイテムアイテムアイテムアイテムアイテム
+      .card__body__content
+        .card__body__content__price &yen; 1000
+        .card__body__content__like
+          %i.far.fa-heart
+          %span 2
+        .card__body__content__tax (税込)
