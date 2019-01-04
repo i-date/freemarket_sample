@@ -25,7 +25,7 @@ describe User do
       end
 
       # 登録可能（全項目あり、境界値：password128文字）
-      it "is invalid with password(128 characters)" do
+      it "is valid with password(128 characters)" do
         password = Faker::Lorem.characters(128)
         user = build(:user, password: password, password_confirmation: password)
         expect(user).to be_valid
