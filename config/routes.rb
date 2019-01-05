@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, skip: :all
 
+  get '/', to: redirect('/jp')
   scope '/jp' do
     root to: 'items#index'
 
