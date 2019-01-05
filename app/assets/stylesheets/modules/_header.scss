@@ -71,7 +71,18 @@
         @include clear;
 
         &__category, &__brand {
-          @include header-item-nav;
+          float      : left;
+          height     : 100%;
+          padding-top: 6px;
+          font-size  : 14px;
+
+          &__link {
+            color: $black;
+
+            &:hover {
+              color: $light-blue;
+            }
+          }
         }
 
         &__brand {

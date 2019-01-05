@@ -9,8 +9,12 @@
   .header__container__bottom
     %nav.header__container__bottom__nav
       -# TODO:link修正
-      = link_to 'カテゴリーから探す', '#', class: 'header__container__bottom__nav__category'
-      = link_to 'ブランドから探す', '#', class: 'header__container__bottom__nav__brand'
+      .header__container__bottom__nav__category.accordion
+        = link_to 'カテゴリーから探す', '#', class: 'header__container__bottom__nav__category__link'
+        = render 'partial/accordion'
+      .header__container__bottom__nav__brand.accordion
+        = link_to 'ブランドから探す', '#', class: 'header__container__bottom__nav__brand__link'
+        = render 'partial/accordion'
     .header__container__bottom__user
       - if user_signed_in?
         -# TODO:link修正

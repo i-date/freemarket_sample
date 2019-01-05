@@ -23,18 +23,6 @@
   align-items: center;
 }
 
-@mixin header-item-nav {
-  float      : left;
-  height     : 100%;
-  padding-top: 6px;
-  font-size  : 14px;
-  color      : $black;
-
-  &:hover {
-    color: $light-blue;
-  }
-}
-
 @mixin header-user-nav-before-login {
   float        : right;
   height       : 100%;
@@ -71,28 +59,40 @@
 
 @mixin sold {
   &:before {
-    position: absolute;
-    top: 15px;
-    left: 0;
-    display: block;
-    content: 'SOLD';
-    color: $white;
-    font-size: 26px;
+    position   : absolute;
+    top        : 15px;
+    left       : 0;
+    display    : block;
+    content    : 'SOLD';
+    color      : $white;
+    font-size  : 26px;
     font-weight: bold;
-    transform: rotate(-45deg);
-    z-index: 5;
+    transform  : rotate(-45deg);
+    z-index    : 5;
   }
 
   &:after {
-    display: block;
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 0;
-    border: 50px solid $red;
-    border-right: 50px solid transparent;
+    display      : block;
+    content      : '';
+    position     : absolute;
+    top          : 0;
+    left         : 0;
+    width        : 0;
+    height       : 0;
+    border       : 50px solid $red;
+    border-right : 50px solid transparent;
     border-bottom: 50px solid transparent;
+  }
+}
+
+@mixin list-item {
+  &__item {
+    width      : 100%;
+    height     : 100%;
+    padding    : 0 16px;
+    color      : $black;
+    font-size  : 14px;
+    line-height: 1;
+    @include flex-vertical-center;
   }
 }
