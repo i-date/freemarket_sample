@@ -1,0 +1,57 @@
+-# ページタイトル
+- content_for(:title) { 'メルカリ スマホでかんたん フリマアプリ' }
+
+-# メインスライド（Swiperで実装）
+- content_for(:slide) do
+  .swiper-container
+    .swiper-wrapper
+      .swiper-slide.slide
+        .slide__main
+          .slide__main--left
+            %h2 スマホでかんたんフリマアプリ
+            %p メルカリはスマホカメラからすぐに出品できる
+            %p 購入時も安心な独自システムのアプリです
+            .slide__main--left__icon
+              = link_to '#' do
+                = image_tag 'common/app-store.svg', alt: 'app-store-logo', class: 'banner__container--left__icon__app-store', height: '50', width: '170'
+              = link_to '#' do
+                = image_tag 'common/google-play.svg', alt: 'google-play-logo', class: 'banner__container--left__icon__google-play', height: '50', width: '170'
+          = image_tag 'common/main_content_pc.png', alt: 'logo', class: 'slide__main--right', height: '390', width: '440'
+      .swiper-slide.slide
+        = link_to '', '#', class: 'slide__heisei'
+      .swiper-slide.slide
+        = link_to '', '#', class: 'slide__kusanagi'
+      .swiper-slide.slide
+        = link_to '', '#', class: 'slide__welcome'
+    .swiper-pagination
+    .swiper-button-prev
+    .swiper-button-next
+
+-# コンテンツ
+.pickup
+  %h2.pickup-top ピックアップカテゴリー
+  = render partial: 'partial/item-top', locals: { word: 'カテゴリー' }
+
+.pickup
+  %h2.pickup-top ピックアップブランド
+  = render partial: 'partial/item-top', locals: { word: 'ブランド' }
+
+-# メインスライド用JS（Swiperで実装）
+:javascript
+  var swiper = new Swiper('.swiper-container', {
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    loop: true,
+    speed: 1000,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: true
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      type: 'bullets',
+      clickable: true
+    }
+  });

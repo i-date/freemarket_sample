@@ -1,0 +1,18 @@
+// 全体に関わるscssをインポート
+@import './reset';
+@import 'font-awesome-sprockets';
+@import 'font-awesome';
+@import 'modules/common';
+@import 'config/variable';
+@import 'mixin/mixin';
+@import 'vendor/swiper';
+@import 'override/swiper_override';
+
+// 個別ビューに対応するscssをインポート
+@import 'modules/header';
+@import 'modules/footer';
+@import 'modules/banner';
+@import 'modules/top';
+@import 'modules/sell-btn';
+@import 'modules/card';
+@import 'modules/accordion';

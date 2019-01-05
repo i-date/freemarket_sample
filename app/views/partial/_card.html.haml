@@ -1,0 +1,14 @@
+-# TODO:モデル対応
+- 4.times do
+  = link_to '#', class: 'card' do
+    -# TODO:flagで.card__photo-soldを追加
+    .card__photo.card__photo-sold
+      = image_tag 'https://picsum.photos/213/220?image=528', alt: ''
+    .card__body
+      %h3.card__body__head アイテムアイテムアイテムアイテムアイテムアイテムアイテムアイテムアイテムアイテムアイテムアイテムアイテム
+      .card__body__content
+        .card__body__content__price= "¥ #{number_with_delimiter(1000)}"
+        .card__body__content__like
+          %i.far.fa-heart
+          %span 2
+        .card__body__content__tax (税込)
