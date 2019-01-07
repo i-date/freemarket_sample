@@ -53,6 +53,12 @@
               left      : 224px;
               width     : 320px;
               box-shadow: 1px 0 0 0 $gray inset;
+              z-index : 10;
+              overflow: scroll;
+
+              &::-webkit-scrollbar {
+                display: none;
+              }
 
               &__list {
                 height: 30px;
