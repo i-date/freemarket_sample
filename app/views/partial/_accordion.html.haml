@@ -1,81 +1,14 @@
--# categoryモデルに対応
-.accordion__level
-  %ul.level-1
-    %li.level-1__list
-      = link_to '#', class: 'level-1__list__item' do
-        -# TODO: categoryモデル対応
-        キーワード
-      %ul.level-2
-        %li.level-2__list
-          = link_to '#', class: 'level-2__list__item' do
-            -# TODO: categoryモデル対応
-            キーワード
-          %ul.level-3
+-# TODO:リンクをcategoryモデルに対応
+%li.level-1__list
+  = link_to '#', class: 'level-1__list__item' do
+    = category.name
+  %ul.level-2
+    - category.children.each do |child|
+      %li.level-2__list
+        = link_to '#', class: 'level-2__list__item' do
+          = child.name
+        %ul.level-3
+          - child.children.each do |grandchild|
             %li.level-3__list
               = link_to '#', class: 'level-3__list__item' do
-                -# TODO: categoryモデル対応
-                キーワード
-        %li.level-2__list
-          = link_to '#', class: 'level-2__list__item' do
-            -# TODO: categoryモデル対応
-            キーワード
-          %ul.level-3
-            %li.level-3__list
-              = link_to '#', class: 'level-3__list__item' do
-                -# TODO: categoryモデル対応
-                キーワード
-        %li.level-2__list
-          = link_to '#', class: 'level-2__list__item' do
-            -# TODO: categoryモデル対応
-            キーワード
-          %ul.level-3
-            %li.level-3__list
-              = link_to '#', class: 'level-3__list__item' do
-                -# TODO: categoryモデル対応
-                キーワード
-    %li.level-1__list
-      = link_to '#', class: 'level-1__list__item' do
-        -# TODO: categoryモデル対応
-        キーワード
-      %ul.level-2
-        %li.level-2__list
-          = link_to '#', class: 'level-2__list__item' do
-            -# TODO: categoryモデル対応
-            キーワード
-          %ul.level-3
-            %li.level-3__list
-              = link_to '#', class: 'level-3__list__item' do
-                -# TODO: categoryモデル対応
-                キーワード
-        %li.level-2__list
-          = link_to '#', class: 'level-2__list__item' do
-            -# TODO: categoryモデル対応
-            キーワード
-          %ul.level-3
-            %li.level-3__list
-              = link_to '#', class: 'level-3__list__item' do
-                -# TODO: categoryモデル対応
-                キーワード
-    %li.level-1__list
-      = link_to '#', class: 'level-1__list__item' do
-        -# TODO: categoryモデル対応
-        キーワード
-      %ul.level-2
-        %li.level-2__list
-          = link_to '#', class: 'level-2__list__item' do
-            -# TODO: categoryモデル対応
-            キーワード
-          %ul.level-3
-            %li.level-3__list
-              = link_to '#', class: 'level-3__list__item' do
-                -# TODO: categoryモデル対応
-                キーワード
-        %li.level-2__list
-          = link_to '#', class: 'level-2__list__item' do
-            -# TODO: categoryモデル対応
-            キーワード
-          %ul.level-3
-            %li.level-3__list
-              = link_to '#', class: 'level-3__list__item' do
-                -# TODO: categoryモデル対応
-                キーワード
+                = grandchild.name
