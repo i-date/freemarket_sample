@@ -14,9 +14,9 @@
 - has_many :likes
 - has_many :sns_credentials
 - has_many :trading_partners
-- has_one :addresses
-- has_one :credit_cards
-- has_one :profiles
+- has_one :address
+- has_one :credit_card
+- has_one :profile
 
 ## profilesテーブル
 
@@ -124,16 +124,27 @@
 - has_many :comments
 - has_many :images
 - has_many :likes
-- has_one :orders
+- has_one :order
 
 ## brandsテーブル
 
 |Column|Type|Options|
 |------|----|-------|
 |name|string|null: false, unique: true|
+|brand_group_id|references|index: true, foreign_key: true|
 
 ### Association
-- has_many :item
+- belong_to :brand_group
+- has_many :items
+
+## brand_groupsテーブル
+
+|Column|Type|Options|
+|------|----|-------|
+|name|string|null: false, unique: true|
+
+### Association
+- has_many :brands
 
 ## imagesテーブル
 
