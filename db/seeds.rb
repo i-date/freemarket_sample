@@ -7,6 +7,10 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 require "csv"
 
-CSV.foreach('db/category.csv') do |record|
-  Category.create(name: record[0], parent_id: record[1])
+# CSV.foreach('db/category.csv') do |record|
+#   Category.create(name: record[0], parent_id: record[1])
+# end
+
+CSV.foreach('db/brand.csv') do |record|
+  Brand.create(name: record[0], brand_group_id: record[1])
 end
