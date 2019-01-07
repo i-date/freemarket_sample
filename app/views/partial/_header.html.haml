@@ -11,10 +11,19 @@
       -# TODO:link修正
       .header__container__bottom__nav__category.accordion
         = link_to 'カテゴリーから探す', '#', class: 'header__container__bottom__nav__category__link'
-        = render 'partial/accordion'
+        .accordion__level
+          %ul.level-1
+            = render partial: 'partial/accordion', collection: @categories, as: 'category'
+            -# カテゴリー一覧追加
+            %li.level-1__list
+              = link_to 'カテゴリー一覧', '#', class: 'level-1__list__item'
       .header__container__bottom__nav__brand.accordion
         = link_to 'ブランドから探す', '#', class: 'header__container__bottom__nav__brand__link'
-        = render 'partial/accordion'
+        .accordion__level
+          - Brand.headerList.each do |brand|
+            %ul.level-1
+              %li.level-1__list
+                = link_to brand, '#', class: 'level-1__list__item'
     .header__container__bottom__user
       - if user_signed_in?
         -# TODO:link修正
@@ -31,6 +40,5 @@
           = image_tag 'common/user-icon.png', alt: 'icon', class: 'header__container__bottom__user__mypage__icon', height: '32', width: '32'
           %span マイページ
       - else
-        -# TODO:link修正
         = link_to '新規会員登録', new_user_registration_path, class: 'header__container__bottom__user__signup'
         = link_to 'ログイン', new_user_session_path, class: 'header__container__bottom__user__login'
