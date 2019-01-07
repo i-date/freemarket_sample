@@ -1,4 +1,4 @@
-$(function () {
+$(document).on('turbolinks:load', function () {
   var acoordionTopDistance;
   var headerBottomPosition = 90;
   var accordion            = $('.accordion');
