@@ -58,7 +58,7 @@
 }
 
 @mixin sold {
-  &:before {
+  &:after {
     position   : absolute;
     top        : 15px;
     left       : 0;
@@ -68,10 +68,10 @@
     font-size  : 26px;
     font-weight: bold;
     transform  : rotate(-45deg);
-    z-index    : 5;
+    // z-index    : 5;
   }
 
-  &:after {
+  &:before {
     display      : block;
     content      : '';
     position     : absolute;
