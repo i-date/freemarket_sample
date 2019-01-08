@@ -1,6 +1,5 @@
 require 'rails_helper'
 
-# TODO:ログインに必要な最低限以外のテスト追加、日本語化後の修正
 describe User do
   describe '#create' do
     context "can save" do
@@ -38,28 +37,28 @@ describe User do
       it "is invalid without nickname" do
         user = build(:user, nickname: nil)
         user.valid?
-        expect(user.errors[:nickname]).to include("can't be blank")
+        expect(user.errors[:nickname]).to include("入力してください")
       end
 
       # 登録不可能（email空欄）
       it "is invalid without email" do
         user = build(:user, email: nil)
         user.valid?
-        expect(user.errors[:email]).to include("can't be blank")
+        expect(user.errors[:email]).to include("入力してください")
       end
 
       # 登録不可能（password空欄）
       it "is invalid without password" do
         user = build(:user, password: nil)
         user.valid?
-        expect(user.errors[:password]).to include("can't be blank")
+        expect(user.errors[:password]).to include("入力してください")
       end
 
       # 登録不可能（password_confirmation空欄）
       it "is invalid without password_confirmation" do
         user = build(:user, password_confirmation: nil)
         user.valid?
-        expect(user.errors[:password_confirmation]).to include("can't be blank")
+        expect(user.errors[:password_confirmation]).to include("入力してください")
       end
 
       # 登録不可能（email重複）
@@ -68,21 +67,21 @@ describe User do
         user1 = create(:user, email: email)
         user2 = build(:user, email: email)
         user2.valid?
-        expect(user2.errors[:email]).to include("has already been taken")
+        expect(user2.errors[:email]).to include("メールアドレスに誤りがあります。ご確認いただき、正しく変更してください。")
       end
 
       # 登録不可能（passwordが異なる）
       it "is invalid with different password" do
         user = build(:user, password: Faker::Lorem.characters(8), password: Faker::Lorem.characters(9))
         user.valid?
-        expect(user.errors[:password_confirmation]).to include("doesn't match Password")
+        expect(user.errors[:password_confirmation]).to include("パスワードとパスワード（確認）が一致しません")
       end
 
       # 登録不可能（文字数境界外、境界値：nickname21文字）
       it "is invalid with nickname(21 characters)" do
         user = build(:user, nickname: Faker::Lorem.characters(21))
         user.valid?
-        expect(user.errors[:nickname]).to include("is too long (maximum is 20 characters)")
+        expect(user.errors[:nickname]).to include("20文字以下で入力してください")
       end
 
       # 登録不可能（文字数境界外、境界値：password5文字）
@@ -90,7 +89,7 @@ describe User do
         password = Faker::Lorem.characters(5)
         user = build(:user, password: password, password_confirmation: password)
         user.valid?
-        expect(user.errors[:password]).to include("is too short (minimum is 6 characters)")
+        expect(user.errors[:password]).to include("パスワードは6文字以上128文字以下で入力してください")
       end
 
       # 登録不可能（文字数境界外、境界値：password129文字）
@@ -98,35 +97,35 @@ describe User do
         password = Faker::Lorem.characters(129)
         user = build(:user, password: password, password_confirmation: password)
         user.valid?
-        expect(user.errors[:password]).to include("is too long (maximum is 128 characters)")
+        expect(user.errors[:password]).to include("パスワードは6文字以上128文字以下で入力してください")
       end
 
       # 登録不可能（フォーマットエラー：email、@なし）
       it "is invalid with wrong email format(without '@')" do
         user = build(:user, email: "tester1.gmail.com")
         user.valid?
-        expect(user.errors[:email]).to include("is invalid")
+        expect(user.errors[:email]).to include("フォーマットが不適切です")
       end
 
       # 登録不可能（フォーマットエラー：email、@前文字なし）
       it "is invalid with wrong email format(without characters before @)" do
         user = build(:user, email: "@gmail.com")
         user.valid?
-        expect(user.errors[:email]).to include("is invalid")
+        expect(user.errors[:email]).to include("フォーマットが不適切です")
       end
 
       # 登録不可能（フォーマットエラー：email、@後文字なし）
       it "is invalid with wrong email format(without characters after @)" do
         user = build(:user, email: "tester1@")
         user.valid?
-        expect(user.errors[:email]).to include("is invalid")
+        expect(user.errors[:email]).to include("フォーマットが不適切です")
       end
 
       # 登録不可能（フォーマットエラー：email、最後尾文字が数字）
       it "is invalid with wrong email format(last character is number)" do
         user = build(:user, email: "tester1@gmail.com1")
         user.valid?
-        expect(user.errors[:email]).to include("is invalid")
+        expect(user.errors[:email]).to include("フォーマットが不適切です")
       end
 
       # 登録不可能（フォーマットエラー：password、数字のみ）
@@ -134,7 +133,7 @@ describe User do
         password = "12345678"
         user = build(:user, password: password, password_confirmation: password)
         user.valid?
-        expect(user.errors[:password]).to include("is invalid")
+        expect(user.errors[:password]).to include("フォーマットが不適切です")
       end
     end
   end
