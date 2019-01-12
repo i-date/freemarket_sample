@@ -1,6 +1,8 @@
 %h2 Sign up
 = form_for(resource, url: create_user_registration_path) do |f|
-  = devise_error_messages!
+  - if resource.errors.messages[:password].present?
+    - resource.errors.messages[:password].each do |message|
+      .error= message
   .field
     = f.label :nickname
     %br/
