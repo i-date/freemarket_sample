@@ -22,13 +22,13 @@ class User < ApplicationRecord
     presence: true
 
   def self.from_omniauth(auth)
-    sns = SnsCredential.where(uid: auth.uid, provider: auth.provider).first
+    sns = SnsCredential.where(uid: auth["uid"], provider: auth["provider"]).first
     if sns.present?
       user = sns.user
     else
-      user = User.where(email: auth.info.email).first
+      user = User.where(email: auth["info"]["email"]).first
       if user.present?
-        SnsCredential.create(uid: auth.uid, provider: auth.provider, user_id: user.id)
+        SnsCredential.create(uid: auth["uid"], provider: auth["provider"], user_id: user.id)
         user
       else
         user
