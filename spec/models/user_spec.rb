@@ -150,7 +150,7 @@ describe User do
     end
 
     # userは登録済みだが、sns_credentialは登録していない
-    it 'check method with existing sns_credential and user' do
+    it 'check method with existing user and new sns_credential' do
       user = create(:user)
       auth = { "uid" => "12345678", "provider" => "google_oauth2", "info" => { "email" => user.email } }
       user2 = User.from_omniauth(auth)
@@ -158,7 +158,7 @@ describe User do
     end
 
     # userもsns_credentialも登録していない
-    it 'check method with existing sns_credential and user' do
+    it 'check method with new sns_credential' do
       auth = { "uid" => "12345678", "provider" => "google_oauth2", "info" => { "email" => Faker::Internet.email } }
       user = User.from_omniauth(auth)
       expect(user).to eq nil
