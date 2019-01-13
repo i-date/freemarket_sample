@@ -133,8 +133,35 @@ describe User do
         password = "12345678"
         user = build(:user, password: password, password_confirmation: password)
         user.valid?
-        expect(user.errors[:password]).to include("フォーマットが不適切です")
+        expect(user.errors[:password]).to include("数字のみのパスワードは設定できません")
       end
+    end
+  end
+
+  # oauthレスポンスからユーザーを取得するメソッド
+  describe '#from_omniauth(auth)' do
+    # userに紐付いたsns_credentialに登録済み
+    it 'check method with existing sns_credential and user' do
+      user = create(:user)
+      sns = create(:sns_credential, user_id: user.id)
+      auth = { "uid" => "12345678", "provider" => "google_oauth2", "info" => { "email" => user.email } }
+      user2 = User.from_omniauth(auth)
+      expect(user2).to eq user
+    end
+
+    # userは登録済みだが、sns_credentialは登録していない
+    it 'check method with existing sns_credential and user' do
+      user = create(:user)
+      auth = { "uid" => "12345678", "provider" => "google_oauth2", "info" => { "email" => user.email } }
+      user2 = User.from_omniauth(auth)
+      expect(user2).to eq user
+    end
+
+    # userもsns_credentialも登録していない
+    it 'check method with existing sns_credential and user' do
+      auth = { "uid" => "12345678", "provider" => "google_oauth2", "info" => { "email" => Faker::Internet.email } }
+      user = User.from_omniauth(auth)
+      expect(user).to eq nil
     end
   end
 end
