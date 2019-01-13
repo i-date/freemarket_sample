@@ -44,7 +44,6 @@ ActiveRecord::Schema.define(version: 2019_01_11_043824) do
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "nickname", default: "", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -52,6 +51,16 @@ ActiveRecord::Schema.define(version: 2019_01_11_043824) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "nickname", default: "", null: false
+    t.text "profile"
+    t.string "last_name", default: "", null: false
+    t.string "first_name", default: "", null: false
+    t.string "last_name_kana", default: "", null: false
+    t.string "first_name_kana", default: "", null: false
+    t.integer "birth_year", default: 0, null: false
+    t.integer "birth_month", default: 0, null: false
+    t.integer "birth_day", default: 0, null: false
+    t.integer "phone_number"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
