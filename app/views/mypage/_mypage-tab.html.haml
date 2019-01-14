@@ -1,0 +1,28 @@
+.tag-box
+  .tag-box__tab
+    %h3.tag-box__tab--left.tab-active= left_head
+    %h3.tag-box__tab--right= right_head
+
+  .tag-box__list
+    - if left_content.present?
+      = render partial: "mypage/mypage-tab-list", collection: left_content, as: :body
+      .tag-box__list--bottom
+        = link_to '一覧を見る', '#'
+    - else
+      .tag-box__list__none
+        - if left_head.match(/.*取引.*/)
+          .tag-box__list__none__body= "#{left_head}の商品がありません"
+        - else
+          .tag-box__list__none__body= "現在、#{left_head}はありません"
+
+  .tag-box__list
+    - if right_content.present?
+      = render partial: "mypage/mypage-tab-list", collection: right_content, as: :body
+      .tag-box__list--bottom
+        = link_to '一覧を見る', '#'
+    - else
+      .tag-box__list__none
+        - if right_head.match(/.*取引.*/)
+          .tag-box__list__none__body= "#{right_head}はありません"
+        - else
+          .tag-box__list__none__body= "現在、#{right_head}はありません"

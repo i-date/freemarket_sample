@@ -1,0 +1,11 @@
+- 5.times do
+  = link_to '#', class: 'tag-box__list__content' do
+    = image_tag 'common/mercari_profile.png', alt: 'icon', class: 'tag-box__list__content__icon', height: '48', width: '48'
+    .tag-box__list__content__body
+      -# TODO:コレクション対応
+      .tag-box__list__content__body__text= body[:text]
+      .tag-box__list__content__body__time
+        %i.far.fa-clock
+        -# TODO:コレクション対応
+        %span 2 日前
+    %i.fas.fa-chevron-right.right
