@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   scope '/jp' do
     root to: 'items#index'
 
+    namespace :mypage do
+      get '', to: 'mypage#index', as: :top
+    end
+
     # TODO:仮のURIを修正
     devise_scope :user do
       # session
