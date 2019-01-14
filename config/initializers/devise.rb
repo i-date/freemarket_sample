@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+OmniAuth.config.full_host = Rails.env.production? ? 'https://freemarket-sample.xyz' : 'http://localhost:3000'
 
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
@@ -9,7 +10,7 @@ Devise.setup do |config|
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
   # config.secret_key = '6874663afc0f7bc3aea2f1460a30895cddb9c00099c52d5c24f95002026a075d2f83b8cd93dfd591cfa42da77cae2b0cd39ff3680f3df972117541fd5da99ddd'
-  
+
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'
@@ -257,6 +258,19 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+  config.omniauth :facebook,
+    Rails.application.credentials.facebook[:key],
+    Rails.application.credentials.facebook[:secret],
+    scope: 'email',
+    info_fields: 'email',
+    request_path: '/jp/signup/facebook/auth',
+    callback_path: "/jp/signup/facebook/callback"
+  config.omniauth :google_oauth2,
+    Rails.application.credentials.google_oauth2[:key],
+    Rails.application.credentials.google_oauth2[:secret],
+    scope: 'email',
+    request_path: '/jp/signup/google/auth',
+    callback_path: "/jp/signup/google/callback"
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
