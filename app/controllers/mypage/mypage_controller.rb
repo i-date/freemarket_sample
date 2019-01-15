@@ -1,4 +1,5 @@
 class Mypage::MypageController < ApplicationController
+  include Common
   before_action :move_to_root
 
   def index
@@ -8,11 +9,5 @@ class Mypage::MypageController < ApplicationController
     @todo = []
     @trading_items = []
     @purchased_items = []
-  end
-
-  private
-
-  def move_to_root
-    redirect_to root_path unless user_signed_in?
   end
 end
