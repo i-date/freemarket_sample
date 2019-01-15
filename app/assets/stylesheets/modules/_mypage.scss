@@ -1,4 +1,4 @@
-// --------------------- マイページトップ --------------------- //
+// --------------------- マイページ トップ --------------------- //
 .mypage {
   display        : flex;
   justify-content: space-between;
@@ -79,4 +79,21 @@
   background-color: $gray-hover;
   font-weight     : bold;
   @include flex-vertical-center;
+}
+
+// --------------------- マイページ ログアウト --------------------- //
+.mypage__content .logout {
+  width           : 100&;
+  padding         : 64px;
+  background-color: $white;
+
+  &__link {
+    width           : 320px;
+    height          : 50px;
+    margin          : 0 auto;
+    background-color: $red;
+    color           : $white;
+    font-size       : 14px;
+    @include flex-center;
+  }
 }
