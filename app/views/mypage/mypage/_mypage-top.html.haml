@@ -1,0 +1,18 @@
+.mypage__content
+  .user
+    =link_to '#', class: 'user__link' do
+      = image_tag 'common/user-icon.png', alt: 'icon', class: 'user__link__icon', height: '60', width: '60'
+      %h2.user__link__nickname= @user.nickname
+      .user__link__review
+        %div
+          評価
+          -# TODO:reviewsテーブルでカウントした値に変更
+          %span 0
+        %div
+          出品数
+          -# TODO:itemsテーブルでカウントした値に変更
+          %span 0
+  = render partial: "mypage/mypage-tab", locals: { left_head: 'お知らせ', right_head: 'やることリスト', left_content: @notice, right_content: @todo }
+
+  %h2.purchase 購入した商品
+  = render partial: "mypage/mypage-tab", locals: { left_head: '取引中', right_head: '過去の取引', left_content: @trading_items, right_content: @purchased_items }

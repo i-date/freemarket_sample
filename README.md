@@ -14,7 +14,6 @@
 - has_many :likes
 - has_many :sns_credentials
 - has_many :trading_partners
-- has_one :address
 - has_one :credit_card
 - has_one :profile
 
@@ -31,15 +30,6 @@
 |birth_month|integer|null: false|
 |birth_day|integer|null: false|
 |phone_number|integer|unique: true|
-|user_id|references|null: false, index: true, foreign_key: true|
-
-### Association
-- belongs_to :user
-
-## addressesテーブル
-
-|Column|Type|Options|
-|------|----|-------|
 |zipcode|string|null: false|
 |prefecture|integer|null: false|
 |city|string|null: false|
