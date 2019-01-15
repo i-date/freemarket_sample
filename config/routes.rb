@@ -10,7 +10,8 @@ Rails.application.routes.draw do
     root to: 'items#index'
 
     namespace :mypage do
-      get '', to: 'mypage#index', as: :top
+      get '',       to: 'mypage#index', as: :top
+      get 'logout', to: 'logout#index', as: :logout
     end
 
     # TODO:仮のURIを修正
