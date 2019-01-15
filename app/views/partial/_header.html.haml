@@ -36,7 +36,7 @@
           %span お知らせ
           .header__container__bottom__user__notice--new 10
         -# TODO:link修正
-        = link_to destroy_user_session_path, class: 'header__container__bottom__user__mypage', method: :delete do
+        = link_to mypage_top_path, class: 'header__container__bottom__user__mypage' do
           = image_tag 'common/user-icon.png', alt: 'icon', class: 'header__container__bottom__user__mypage__icon', height: '32', width: '32'
           %span マイページ
       - else
