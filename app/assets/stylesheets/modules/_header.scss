@@ -33,17 +33,12 @@
           border-radius   : 4px;
           background-color: #fafafa;
           padding         : 9px 32px 9px 8px;
+          @include focus-field;
 
           &::placeholder {
             position: relative;
             top     : 1px;
             left    : 0;
-          }
-
-          &:focus {
-            outline      : 0;
-            border       : 1px solid $light-blue;
-            border-radius: 4px;
           }
         }
 
