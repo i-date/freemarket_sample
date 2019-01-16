@@ -1,2 +1,16 @@
-= link_to 'facebook', user_facebook_omniauth_authorize_path
-= link_to 'google', user_google_oauth2_omniauth_authorize_path
+-# ページタイトル
+- content_for(:title) { '会員情報入力 - メルカリ サンプル' }
+
+-# コンテンツ
+.devise-main__registration
+  %h2.devise-main__registration__head 新規会員登録
+  .devise-main__registration__link
+    = link_to new_user_registration_path, class: 'devise-main__registration__link__email' do
+      %i.far.fa-envelope
+      メールアドレスで登録
+    = link_to user_facebook_omniauth_authorize_path, class: 'devise-main__registration__link__facebook'  do
+      %i.fab.fa-facebook
+      Facebookで登録
+    = link_to user_google_oauth2_omniauth_authorize_path, class: 'devise-main__registration__link__google' do
+      %i.fab.fa-google-plus-g
+      Googleで登録
