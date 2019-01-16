@@ -95,3 +95,49 @@
     @include flex-vertical-center;
   }
 }
+
+@mixin facebook {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  background-color: #385185;
+  color: $white;
+  font-size: 14px;
+  @include flex-center;
+
+  i {
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    transform: translateY(-50%);
+    color: $white;
+    font-size: 21px;
+  }
+}
+
+@mixin google {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  background-color: #dc4e41;
+  color: $white;
+  font-size: 14px;
+  @include flex-center;
+
+  i {
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    transform: translateY(-50%);
+    color: $white;
+    font-size: 19px;
+  }
+}
+
+@mixin focus-field {
+  &:focus {
+    outline: 0;
+    border: 1px solid $light-blue;
+    border-radius: 4px;
+  }
+}
