@@ -1,0 +1,9 @@
+-# ページタイトル
+- content_for(:title) { 'ログアウト - メルカリ サンプル' }
+
+-# コンテンツ
+.mypage
+  = render partial: "mypage/mypage-nav"
+  .mypage__content
+    .logout
+      = link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'logout__link'
