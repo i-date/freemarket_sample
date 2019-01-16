@@ -1,17 +1,27 @@
-%h2 Log in
-= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true, autocomplete: "email"
-  .field
-    = f.label :password
-    %br/
-    = f.password_field :password, autocomplete: "current-password"
-  - if devise_mapping.rememberable?
+.devise-main__content
+  .devise-main__content__registration
+    %p.devise-main__content__registration__head アカウントをお持ちでない方はこちら
+    =link_to '新規会員登録', start_user_registration_path, class: 'devise-main__content__registration__link'
+
+  .devise-main__content__omniauth
+    = link_to user_facebook_omniauth_authorize_path, class: 'devise-main__content__omniauth__facebook' do
+      %i.fab.fa-facebook
+      Facebookでログイン
+    = link_to user_google_oauth2_omniauth_authorize_path, class: 'devise-main__content__omniauth__google' do
+      %i.fab.fa-google-plus-g
+      Googleでログイン
+
+  = form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'devise-main__content__form' }) do |f|
     .field
-      = f.check_box :remember_me
-      = f.label :remember_me
-  .actions
-    = f.submit "Log in"
-= render "devise/shared/links"
+      = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: 'メールアドレス'
+      - if flash[:alert] && resource.email.blank?
+        %p.error 入力して下さい
+    .field
+      = f.password_field :password, autocomplete: "current-password", placeholder: 'パスワード'
+      - if flash[:alert] && resource.password.blank?
+        %p.error 入力して下さい
+        %p.error パスワードは6文字以上128文字以下で入力してください
+    .actions
+      = f.submit "ログイン"
+    - if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
+      = link_to 'パスワードをお忘れの方', '#', class: 'devise-main__content__form__forgetting'
