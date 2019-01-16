@@ -1,48 +1,51 @@
-%h2 Sign up
-- if sns_user.provider.eql?('facebook')
-  = form_for(sns_user, url: create_user_facebook_omniauth_registration_path) do |f|
-    - if user.errors.any?
-      - user.errors.messages[:nickname].each do |message|
-        .error= message
-    .field
-      = f.label :nickname
-      %br/
-      = f.text_field :nickname, autofocus: true
-    .field
-      = f.label :email
-      %br/
-      = f.email_field :email, autofocus: true, value: "#{sns_user.email}"
-    .field
-      = f.hidden_field :password, value: sns_user.password
-    .field
-      = f.hidden_field :password_confirmation, value: sns_user.password_confirmation
-    .field
-      = f.hidden_field :uid, value: sns_user.uid
-    .field
-      = f.hidden_field :provider, value: sns_user.provider
-    .actions
-      = f.submit "Sign up"
+-# ページタイトル
+- content_for(:title) { '会員情報入力 - メルカリ サンプル' }
 
-- else
-  = form_for(sns_user, url: create_user_google_omniauth_registration_path) do |f|
-    - if user.errors.any?
-      - user.errors.messages[:nickname].each do |message|
-        .error= message
-    .field
-      = f.label :nickname
-      %br/
-      = f.text_field :nickname, autofocus: true
-    .field
-      = f.label :email
-      %br/
-      = f.email_field :email, autofocus: true, value: "#{sns_user.email}"
-    .field
+-# コンテンツ
+.devise-main__registration
+  %h2.devise-main__registration__head 会員情報入力
+  - if sns_user.provider.eql?('facebook')
+    = form_for(sns_user, url: create_user_facebook_omniauth_registration_path, html: { class: 'devise-main__registration__form omniauth' }) do |f|
+      .field
+        %span.label ニックネーム
+        %span.necessary 必須
+        = f.text_field :nickname, autofocus: true, value: "#{sns_user.nickname}", placeholder: "例）メルカリ太郎"
+        - if user.errors.messages[:nickname].present?
+          - user.errors.messages[:nickname].each do |message|
+            %p.error= message
+      .field
+        %span.label メールアドレス
+        %span.necessary 必須
+        = f.email_field :email, autofocus: true, autocomplete: "email", value: "#{sns_user.email}", placeholder: "PC・携帯どちらでも可"
+        - if user.errors.messages[:email].present?
+          - user.errors.messages[:email].each do |message|
+            %p.error= message
       = f.hidden_field :password, value: sns_user.password
-    .field
       = f.hidden_field :password_confirmation, value: sns_user.password_confirmation
-    .field
       = f.hidden_field :uid, value: sns_user.uid
-    .field
       = f.hidden_field :provider, value: sns_user.provider
-    .actions
-      = f.submit "Sign up"
+      .actions
+        = f.submit "メルカリをはじめる"
+
+  - else
+    = form_for(sns_user, url: create_user_google_omniauth_registration_path, html: { class: 'devise-main__registration__form omniauth' }) do |f|
+      .field
+        %span.label ニックネーム
+        %span.necessary 必須
+        = f.text_field :nickname, autofocus: true, value: "#{sns_user.nickname}", placeholder: "例）メルカリ太郎"
+        - if user.errors.messages[:nickname].present?
+          - user.errors.messages[:nickname].each do |message|
+            %p.error= message
+      .field
+        %span.label メールアドレス
+        %span.necessary 必須
+        = f.email_field :email, autofocus: true, autocomplete: "email", value: "#{sns_user.email}", placeholder: "PC・携帯どちらでも可"
+        - if user.errors.messages[:email].present?
+          - user.errors.messages[:email].each do |message|
+            %p.error= message
+      = f.hidden_field :password, value: sns_user.password
+      = f.hidden_field :password_confirmation, value: sns_user.password_confirmation
+      = f.hidden_field :uid, value: sns_user.uid
+      = f.hidden_field :provider, value: sns_user.provider
+      .actions
+        = f.submit "メルカリをはじめる"
