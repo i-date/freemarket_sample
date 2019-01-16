@@ -20,7 +20,7 @@
   background-color: $gray-back;
   @include flex-horizontal-center;
 
-  &__content {
+  &__session {
     width: 456px;
 
     &__registration {
