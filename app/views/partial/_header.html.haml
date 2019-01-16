@@ -35,10 +35,9 @@
           %i.far.fa-bell
           %span お知らせ
           .header__container__bottom__user__notice--new 10
-        -# TODO:link修正
         = link_to mypage_top_path, class: 'header__container__bottom__user__mypage' do
           = image_tag 'common/user-icon.png', alt: 'icon', class: 'header__container__bottom__user__mypage__icon', height: '32', width: '32'
           %span マイページ
       - else
-        = link_to '新規会員登録', new_user_registration_path, class: 'header__container__bottom__user__signup'
+        = link_to '新規会員登録', start_user_registration_path, class: 'header__container__bottom__user__signup'
         = link_to 'ログイン', new_user_session_path, class: 'header__container__bottom__user__login'
