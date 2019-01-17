@@ -1,17 +1,37 @@
-%h2 Log in
-= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true, autocomplete: "email"
-  .field
-    = f.label :password
-    %br/
-    = f.password_field :password, autocomplete: "current-password"
-  - if devise_mapping.rememberable?
+-# ページタイトル
+- content_for(:title) { 'ログイン - メルカリ サンプル' }
+
+-# コンテンツ
+.devise-main__session
+  .devise-main__session__registration
+    %p.devise-main__session__registration__head アカウントをお持ちでない方はこちら
+    =link_to '新規会員登録', start_user_registration_path, class: 'devise-main__session__registration__link'
+
+  .devise-main__session__omniauth
+    = link_to user_facebook_omniauth_authorize_path, class: 'devise-main__session__omniauth__facebook' do
+      %i.fab.fa-facebook
+      Facebookでログイン
+    = link_to user_google_oauth2_omniauth_authorize_path, class: 'devise-main__session__omniauth__google' do
+      %i.fab.fa-google-plus-g
+      Googleでログイン
+
+  = form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'devise-main__session__form' }) do |f|
     .field
-      = f.check_box :remember_me
-      = f.label :remember_me
-  .actions
-    = f.submit "Log in"
-= render "devise/shared/links"
+      = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: 'メールアドレス'
+      - if resource.errors.messages[:email].present?
+        - resource.errors.messages[:email].each do |message|
+          %p.error= message
+    .field
+      = f.password_field :password, autocomplete: "current-password", placeholder: 'パスワード'
+      - if resource.errors.messages[:password].present?
+        - resource.errors.messages[:password].each do |message|
+          %p.error= message
+    .field
+      = recaptcha_tags
+      - if resource.errors.messages[:base].present?
+        - resource.errors.messages[:base].each do |message|
+          %p.error= message
+    .actions
+      = f.submit "ログイン"
+    - if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
+      = link_to 'パスワードをお忘れの方', '#', class: 'devise-main__session__form__forgetting'

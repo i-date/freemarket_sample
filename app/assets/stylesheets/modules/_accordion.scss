@@ -2,21 +2,21 @@
   position: relative;
 
   &__level {
-    display         : block;
-    position        : absolute;
-    top             : 38px;
-    left            : 0;
+    display: block;
+    position: absolute;
+    top: 38px;
+    left: 0;
     background-color: $white;
-    box-shadow      : 0 1px 1px 0 rgba(0, 0, 0, 0.24);
-    z-index         : 5;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.24);
+    z-index: 5;
 
     .level-1 {
       display: none;
-      width  : 224px;
+      width: 224px;
 
       &__list {
         position: relative;
-        height  : 44px;
+        height: 44px;
         @include flex-vertical-center;
         @include list-item;
 
@@ -29,16 +29,16 @@
         }
 
         .level-2 {
-          display   : none;
-          position  : absolute;
-          top       : 0;
-          left      : 224px;
-          width     : 224px;
+          display: none;
+          position: absolute;
+          top: 0;
+          left: 224px;
+          width: 224px;
           box-shadow: 1px 0 0 0 $gray inset;
 
           &__list {
             position: relative;
-            height  : 30px;
+            height: 30px;
             @include flex-vertical-center;
             @include list-item;
 
@@ -47,14 +47,14 @@
             }
 
             .level-3 {
-              display   : none;
-              position  : absolute;
-              top       : 0;
-              left      : 224px;
-              width     : 320px;
+              display: none;
+              position: absolute;
+              top: 0;
+              left: 224px;
+              width: 320px;
               box-shadow: 1px 0 0 0 $gray inset;
-              z-index   : 10;
-              overflow  : scroll;
+              z-index: 10;
+              overflow: scroll;
 
               &::-webkit-scrollbar {
                 display: none;

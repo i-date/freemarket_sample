@@ -27,6 +27,7 @@ class SnsUser
     password = Devise.friendly_token[0,20]
 
     sns_user = SnsUser.new(
+      nickname:              auth["info"]["name"],
       email:                 auth["info"]["email"],
       password:              password,
       password_confirmation: password,
