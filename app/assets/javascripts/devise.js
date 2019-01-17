@@ -1,6 +1,6 @@
 $(document).on('turbolinks:load', function () {
   var session_form = $('.devise-main__session__form .field .error');
-  var session_error_field = session_form.siblings('input');
+  var session_error_field = session_form.siblings('.field_with_errors').children('input');
   var registration_form = $('.devise-main__registration__form .field .error');
   var registration_error_field = registration_form.siblings('.field_with_errors').children('input');
   var omniauth_form = $('.omniauth .field .error');
