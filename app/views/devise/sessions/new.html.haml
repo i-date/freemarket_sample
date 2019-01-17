@@ -18,13 +18,19 @@
   = form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'devise-main__session__form' }) do |f|
     .field
       = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: 'メールアドレス'
-      - if flash[:alert] && resource.email.blank?
-        %p.error 入力して下さい
+      - if resource.errors.messages[:email].present?
+        - resource.errors.messages[:email].each do |message|
+          %p.error= message
     .field
       = f.password_field :password, autocomplete: "current-password", placeholder: 'パスワード'
-      - if flash[:alert] && resource.password.blank?
-        %p.error 入力して下さい
-        %p.error パスワードは6文字以上128文字以下で入力してください
+      - if resource.errors.messages[:password].present?
+        - resource.errors.messages[:password].each do |message|
+          %p.error= message
+    .field
+      = recaptcha_tags
+      - if resource.errors.messages[:base].present?
+        - resource.errors.messages[:base].each do |message|
+          %p.error= message
     .actions
       = f.submit "ログイン"
     - if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'

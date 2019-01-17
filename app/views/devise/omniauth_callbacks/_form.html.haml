@@ -20,6 +20,11 @@
         - if user.errors.messages[:email].present?
           - user.errors.messages[:email].each do |message|
             %p.error= message
+      .field
+        = recaptcha_tags
+        - if user.errors.messages[:base].present?
+          - user.errors.messages[:base].each do |message|
+            %p.error= message
       = f.hidden_field :password, value: sns_user.password
       = f.hidden_field :password_confirmation, value: sns_user.password_confirmation
       = f.hidden_field :uid, value: sns_user.uid
@@ -42,6 +47,11 @@
         = f.email_field :email, autofocus: true, autocomplete: "email", value: "#{sns_user.email}", placeholder: "PC・携帯どちらでも可"
         - if user.errors.messages[:email].present?
           - user.errors.messages[:email].each do |message|
+            %p.error= message
+      .field
+        = recaptcha_tags
+        - if user.errors.messages[:base].present?
+          - user.errors.messages[:base].each do |message|
             %p.error= message
       = f.hidden_field :password, value: sns_user.password
       = f.hidden_field :password_confirmation, value: sns_user.password_confirmation

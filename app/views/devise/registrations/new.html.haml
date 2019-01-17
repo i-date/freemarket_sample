@@ -33,5 +33,10 @@
       - if resource.errors.messages[:password_confirmation].present?
         - resource.errors.messages[:password_confirmation].each do |message|
           %p.error= message
+    .field
+      = recaptcha_tags
+      - if resource.errors.messages[:base].present?
+        - resource.errors.messages[:base].each do |message|
+          %p.error= message
     .actions
       = f.submit "メルカリをはじめる"
