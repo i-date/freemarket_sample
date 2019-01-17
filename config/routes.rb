@@ -34,14 +34,14 @@ Rails.application.routes.draw do
       put    'users/passwords',       to: 'devise/passwords#update'
       post   'users/passwords',       to: 'devise/passwords#create'
       # omniauth_callback
-      match  'signup/facebook/auth',     to: 'users/omniauth_callbacks#passthru',          via: [:get, :post], as: :user_facebook_omniauth_authorize
-      match  'signup/facebook/callback', to: 'users/omniauth_callbacks#facebook_callback', via: [:get, :post], as: :user_facebook_omniauth_callback
-      get    'signup/facebook',          to: 'users/omniauth_callbacks#facebook',                              as: :new_user_facebook_omniauth_registration
-      post   'signup/facebook',          to: 'users/omniauth_callbacks#create',                                as: :create_user_facebook_omniauth_registration
-      match  'signup/google/auth',       to: 'users/omniauth_callbacks#passthru',          via: [:get, :post], as: :user_google_oauth2_omniauth_authorize
-      match  'signup/google/callback',   to: 'users/omniauth_callbacks#google_callback',   via: [:get, :post], as: :user_google_omniauth_callback
-      get    'signup/google',            to: 'users/omniauth_callbacks#google',                                as: :new_user_google_omniauth_registration
-      post   'signup/google',            to: 'users/omniauth_callbacks#create',                                as: :create_user_google_omniauth_registration
+      match  'signup/facebook/auth',     to: 'users/omniauth_callbacks#passthru', via: [:get, :post], as: :user_facebook_omniauth_authorize
+      match  'signup/facebook/callback', to: 'users/omniauth_callbacks#callback', via: [:get, :post]
+      get    'signup/facebook',          to: 'users/omniauth_callbacks#new',                          as: :new_user_facebook_omniauth_registration
+      post   'signup/facebook',          to: 'users/omniauth_callbacks#create',                       as: :create_user_facebook_omniauth_registration
+      match  'signup/google/auth',       to: 'users/omniauth_callbacks#passthru', via: [:get, :post], as: :user_google_oauth2_omniauth_authorize
+      match  'signup/google/callback',   to: 'users/omniauth_callbacks#callback', via: [:get, :post]
+      get    'signup/google',            to: 'users/omniauth_callbacks#new',                          as: :new_user_google_omniauth_registration
+      post   'signup/google',            to: 'users/omniauth_callbacks#create',                       as: :create_user_google_omniauth_registration
     end
   end
 end
