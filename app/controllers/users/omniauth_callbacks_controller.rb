@@ -29,7 +29,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       sign_in_and_redirect @user, event: :authentication
     else
       session["devise.omniauth_data"] = response
-      provider_path = response["provider"].to_s.eql?("facebook") ? new_user_facebook_omniauth_registration : new_user_google_omniauth_registration_path
+      provider_path = response["provider"].to_s.eql?("facebook") ? new_user_facebook_omniauth_registration_path : new_user_google_omniauth_registration_path
       redirect_to provider_path
     end
   end
