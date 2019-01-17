@@ -1,19 +1,19 @@
 .sell-btn {
-  position     : fixed;
-  z-index      : 100;
-  bottom       : 32px;
-  right        : 32px;
-  width        : 160px;
-  height       : 160px;
+  position: fixed;
+  z-index: 100;
+  bottom: 32px;
+  right: 32px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
-  background   : $red;
-  color        : #fff;
-  text-align   : center;
+  background: $red;
+  color: #fff;
+  text-align: center;
 
   &__head {
-    height     : 22px;
-    margin     : 32px 0 3px 0;
-    font-size  : 22px;
+    height: 22px;
+    margin: 32px 0 3px 0;
+    font-size: 22px;
     line-height: 1.1;
   }
 

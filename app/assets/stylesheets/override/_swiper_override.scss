@@ -1,32 +1,32 @@
 .swiper-wrapper {
-  width : 100%;
+  width: 100%;
   height: 390px;
 }
 
 .swiper-button-prev,
 .swiper-button-next {
-  width    : 31px;
-  height   : 46px;
+  width: 31px;
+  height: 46px;
   transform: translateY(-1px);
 }
 
 .swiper-button-prev {
   background: image-url('common/carousel-prev.png') no-repeat center center / contain;
-  left      : 60px;
-  filter    : drop-shadow(0 0 0 10px 2px #000);
+  left: 60px;
+  filter: drop-shadow(0 0 0 10px 2px #000);
 }
 
 .swiper-button-next {
   background: image-url('common/carousel-next.png') no-repeat center center / contain;
-  right     : 60px;
-  filter    : drop-shadow(0 0 0 10px 2px #000);
+  right: 60px;
+  filter: drop-shadow(0 0 0 10px 2px #000);
 }
 
 .swiper-pagination-bullet {
-  width     : 12px;
-  height    : 12px;
+  width: 12px;
+  height: 12px;
   background: $white;
-  opacity   : 0.4;
+  opacity: 0.4;
 
   &:hover {
     cursor: default;
@@ -34,7 +34,7 @@
 }
 
 .swiper-pagination-bullet-active {
-  opacity   : 1;
+  opacity: 1;
   background: rgba(0, 0, 0, 0.5);
 }
 
