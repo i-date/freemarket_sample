@@ -13,7 +13,7 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def remove_unique_validation(resource)
-    if resource.errors.details[:email][0][:error].to_s == "taken"
+    if resource.errors.details[:email].present? && resource.errors.details[:email][0][:error].to_s == "taken"
       resource.errors[:email].pop
     end
   end
