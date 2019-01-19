@@ -13,6 +13,10 @@ Rails.application.routes.draw do
     # マイページ
     get 'mypage', to: 'mypage/mypage#index', as: :mypage_top
     get 'logout', to: 'mypage/logout#index', as: :mypage_logout
+    namespace :mypage do
+      get   'profile', to: 'profile#edit',   as: :profile
+      patch 'profile', to: 'profile#update', as: :profile_update
+    end
 
     # TODO:仮のURIを修正
     devise_scope :user do
