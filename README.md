@@ -22,18 +22,18 @@
 |Column|Type|Options|
 |------|----|-------|
 |body|text|---|
-|last_name|string|null: false|
-|first_name|string|null: false|
-|last_name_kana|string|null: false|
-|first_name_kana|string|null: false|
-|birth_year|integer|null: false|
-|birth_month|integer|null: false|
-|birth_day|integer|null: false|
+|last_name|string|---|
+|first_name|string|---|
+|last_name_kana|string|---|
+|first_name_kana|string|---|
+|birth_year|integer|---|
+|birth_month|integer|---|
+|birth_day|integer|---|
 |phone_number|integer|unique: true|
-|zipcode|string|null: false|
-|prefecture|integer|null: false|
-|city|string|null: false|
-|block|string|null: false|
+|zipcode|integer|---|
+|prefecture|integer|---|
+|city|string|---|
+|block|string|---|
 |building|string|---|
 |user_id|references|null: false, index: true, foreign_key: true|
 
