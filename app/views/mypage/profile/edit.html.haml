@@ -1,0 +1,26 @@
+-# ページタイトル
+- content_for(:title) { 'プロフィール - メルカリ サンプル' }
+
+-# コンテンツ
+.mypage
+  -# ナビゲーション
+  = render partial: "mypage/mypage-nav"
+  -# メインコンテンツ
+  .mypage__content
+    .profile
+      %h2.profile__head プロフィール
+      = form_for(@user_detail, url: mypage_profile_update_path, method: :patch, html: { class: 'profile__form' }) do |f|
+        .profile__form__user
+          .profile__form__user__content
+            = image_tag 'common/user-icon.png', alt: 'icon', class: 'header__container__bottom__user__mypage__icon', height: '60', width: '60'
+            = f.text_field :nickname, autofocus: true, value: "#{@user.nickname}", placeholder: "例)AYA☆セール中"
+          - if @user.errors.messages[:nickname].present?
+            - @user.errors.messages[:nickname].each do |message|
+              %p.error= message
+        .profile__form__body
+          = f.text_area :body, autofocus: true, value: "#{@profile.body}", placeholder: "例）こんにちは☆ ご覧いただきありがとうございます！かわいいものやきれいめオフィスカジュアル中心に出品しています。服のサイズは主に9号です。気持ちよくお取引できるよう心がけていますので、商品や発送方法などご質問がありましたらお気軽にどうぞ♪"
+          - if @profile.errors.messages[:body].present?
+            - @profile.errors.messages[:body].each do |message|
+              %p.error= message
+        .profile__form__actions
+          = f.submit "変更する"
