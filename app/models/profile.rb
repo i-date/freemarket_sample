@@ -1,6 +1,10 @@
 class Profile < ApplicationRecord
   belongs_to :user
 
+  validates :nickname,
+    presence: true,
+    length: { maximum: 20 },
+    on: :profile_body
   validates :body,
     length: { maximum: 1000 }
   validates :last_name,
