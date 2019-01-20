@@ -11,7 +11,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @user = User.new(@sns_user.user_params)
     if @user.save
       SnsCredential.create(@sns_user.sns_params.merge(user_id: @user.id))
-      sign_in_and_redirect @user, event: :authentication
+      sign_in_and_custom_redirect @user, event: :authentication
     else
       render :new
     end
@@ -26,7 +26,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def callback_for(response)
     @user = User.from_omniauth(response)
     if @user.present?
-      sign_in_and_redirect @user, event: :authentication
+      sign_in_and_custom_redirect @user, event: :authentication
     else
       session["devise.omniauth_data"] = response
       provider_path = response["provider"].to_s.eql?("facebook") ? new_user_facebook_omniauth_registration_path : new_user_google_omniauth_registration_path
@@ -41,6 +41,19 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     unless verify_recaptcha(model: @user)
       render :new
     end
+  end
+
+  def sign_in_and_custom_redirect(resource_or_scope, *args)
+    options = args.extract_options!
+    scope = Devise::Mapping.find_scope!(resource_or_scope)
+    resource = args.last || resource_or_scope
+    sign_in(scope, resource, options)
+    user = User.find(resource.id)
+    if user.profile.blank?
+      profile = Profile.new({ nickname: user.nickname, user_id: user.id })
+      profile.save(validate: false)
+    end
+    redirect_to after_sign_in_path_for(resource)
   end
 
   def failure
