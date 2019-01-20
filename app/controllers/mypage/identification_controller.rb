@@ -1,7 +1,7 @@
 class Mypage::IdentificationController < ApplicationController
 
   def edit
-    @profile = Profile.find_by(user_id: current_user.id).present? ? Profile.find_by(user_id: currnet_user.id) : Profile.new
+    @profile = current_user.profile
   end
 
   def update
