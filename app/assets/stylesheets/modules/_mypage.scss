@@ -172,5 +172,12 @@
         @include flex-center;
       }
     }
+
+    &__user .error, &__body .error {
+      margin-top: 8px;
+      color: $red;
+      font-size: 14px;
+      @include flex-horizontal-center;
+    }
   }
 }
