@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :omniauthable, omniauth_providers: %i[facebook google_oauth2]
 
   has_many :sns_credentials
-  has_one :profiles
+  has_one :profile
 
   validates :nickname,
     presence: true,
