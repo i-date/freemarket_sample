@@ -1,0 +1,103 @@
+-# ページタイトル
+- content_for(:title) { '本人情報の登録 - メルカリ サンプル' }
+
+-# コンテンツ
+.mypage
+  -# ナビゲーション
+  = render partial: "mypage/mypage-nav"
+  -# メインコンテンツ
+  .mypage__content
+    .identification
+      %h2.identification__head 本人情報の登録
+      %p.identification__description お客さまのあんしん・あんぜんな取引のため、本人情報のご登録をお願いしております。
+      = form_for(@profile, url: mypage_identification_update_path, method: :patch, html: { class: 'identification__form' }) do |f|
+        -# 名前
+        .identification__form__field
+          %span.identification__form__field__label お名前
+          %span.identification__form__field__necessary 必須
+          = f.text_field :last_name, autofocus: true, value: "#{@profile.last_name}", placeholder: "例）山田"
+          - if @profile.errors.messages[:last_name].present?
+            - @profile.errors.messages[:last_name].each do |message|
+              %p.error= message
+          = f.text_field :first_name, autofocus: true, value: "#{@profile.first_name}", placeholder: "例）彩"
+          - if @profile.errors.messages[:first_name].present?
+            - @profile.errors.messages[:first_name].each do |message|
+              %p.error= message
+        -# 名前カナ
+        .identification__form__field
+          %span.identification__form__field__label お名前カナ
+          %span.identification__form__field__necessary 必須
+          = f.text_field :last_name_kana, autofocus: true, value: "#{@profile.last_name_kana}", placeholder: "例）ヤマダ"
+          - if @profile.errors.messages[:last_name_kana].present?
+            - @profile.errors.messages[:last_name_kana].each do |message|
+              %p.error= message
+          = f.text_field :first_name_kana, autofocus: true, value: "#{@profile.first_name_kana}", placeholder: "例）アヤ"
+          - if @profile.errors.messages[:first_name_kana].present?
+            - @profile.errors.messages[:first_name_kana].each do |message|
+              %p.error= message
+        -# 郵便番号
+        .identification__form__field
+          %span.identification__form__field__label 郵便番号
+          %span.identification__form__field__option 任意
+          = f.text_field :zipcode, autofocus: true, value: "#{@profile.zipcode}", placeholder: "例）1234567"
+          - if @profile.errors.messages[:zipcode].present?
+            - @profile.errors.messages[:zipcode].each do |message|
+              %p.error= message
+        -# 都道府県
+        .identification__form__field
+          %span.identification__form__field__label 都道府県
+          %span.identification__form__field__necessary 必須
+          .identification__form__field__prefecture
+            = f.select :prefecture, Profile.prefectures.keys, {}, autofocus: true, class: 'identification__form__field__prefecture__body'
+            %i.fas.fa-chevron-down
+          - if @profile.errors.messages[:prefecture].present?
+            - @profile.errors.messages[:prefecture].each do |message|
+              %p.error= message
+        -# 市区町村
+        .identification__form__field
+          %span.identification__form__field__label 市区町村
+          %span.identification__form__field__necessary 必須
+          = f.text_field :city, autofocus: true, value: "#{@profile.city}", placeholder: "例）横浜市緑区"
+          - if @profile.errors.messages[:city].present?
+            - @profile.errors.messages[:city].each do |message|
+              %p.error= message
+        -# 番地
+        .identification__form__field
+          %span.identification__form__field__label 番地
+          %span.identification__form__field__necessary 必須
+          = f.text_field :block, autofocus: true, value: "#{@profile.block}", placeholder: "例）青山1-1-1"
+          - if @profile.errors.messages[:block].present?
+            - @profile.errors.messages[:block].each do |message|
+              %p.error= message
+        -# 建物
+        .identification__form__field
+          %span.identification__form__field__label 建物
+          %span.identification__form__field__option 任意
+          = f.text_field :building, autofocus: true, value: "#{@profile.building}", placeholder: "例）柳ビル103"
+          - if @profile.errors.messages[:building].present?
+            - @profile.errors.messages[:building].each do |message|
+              %p.error= message
+        -# 生年月日
+        .identification__form__field
+          %span.identification__form__field__label 生年月日
+          %span.identification__form__field__necessary 必須
+          .identification__form__field__birth
+            .identification__form__field__birth__box
+              = f.select :birth_year, [*1900..2019], {}, autofocus: true, class: 'identification__form__field__birth__box__body'
+              %i.fas.fa-chevron-down
+            %span 年
+            .identification__form__field__birth__box
+              = f.select :birth_month, [*1..12], {}, autofocus: true, class: 'identification__form__field__birth__box__body'
+              %i.fas.fa-chevron-down
+            %span 月
+            .identification__form__field__birth__box
+              = f.select :birth_day, [*1..31], {}, autofocus: true, class: 'identification__form__field__birth__box__body'
+              %i.fas.fa-chevron-down
+            %span 日
+          %p.identification__form__field__notice  ※出品されたことがある、本人情報未登録のお客さまもご対象となります。
+        .identification__form__actions
+          = f.submit "登録する"
+        .identification__form__link
+          = link_to '#' do
+            %span 本人情報の登録について
+            %i.fas.fa-chevron-right
