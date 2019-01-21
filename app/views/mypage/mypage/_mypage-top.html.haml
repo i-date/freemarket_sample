@@ -2,7 +2,7 @@
   .user
     =link_to '#', class: 'user__link' do
       = image_tag 'common/user-icon.png', alt: 'icon', class: 'user__link__icon', height: '60', width: '60'
-      %h2.user__link__nickname= @user.nickname
+      %h2.user__link__nickname= @user.profile.nickname
       .user__link__review
         %div
           評価
