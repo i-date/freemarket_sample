@@ -1,4 +1,6 @@
 class Mypage::IdentificationController < ApplicationController
+  include Common
+  before_action :move_to_root
 
   def edit
     @profile = current_user.profile
