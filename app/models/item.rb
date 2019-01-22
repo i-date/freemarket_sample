@@ -37,6 +37,7 @@ class Item < ApplicationRecord
     presence: true,
     length: { in: 300..9999999, message: "販売価格は300以上9,999,999以内で入力してください" }
   validates :description,
+    presence: true,
     length: { maximum: 1000 }
   validates :condition,
     presence: true
