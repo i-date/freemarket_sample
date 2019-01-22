@@ -23,6 +23,6 @@ CSV.foreach('db/size.csv') do |record|
   Size.create(name: record[0])
 end
 
-CSV.foreach('db/brand_group.csv') do |record|
-  Item.create(name: record[1], price: record[2], description: record[3], condition: record[4], shipping_fee: record[5], shipping_from: record[6], days_before_shipping: record[6], shipping_method: record[7], status: record[8], brand: record[9], category_id: record[10], user_id: record[11], size_id: record[12])
+CSV.foreach('db/item.csv') do |record|
+  Item.create!(name: record[0], price: record[1], description: record[2], condition: record[3], shipping_fee: record[4], shipping_from: record[5], days_before_shipping: record[6], shipping_method: record[7], status: record[8], brand: record[9], category_id: record[10], user_id: record[11], size_id: record[12])
 end
