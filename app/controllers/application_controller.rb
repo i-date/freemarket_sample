@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :basic_auth, if: :production?
+  before_action :category_variable, unless: :devise_controller?
 
   private
 
@@ -22,5 +23,9 @@ class ApplicationController < ActionController::Base
   # TODO:リダイレクト先の分岐
   def after_sign_in_path_for(resource)
     root_path
+  end
+
+  def category_variable
+    @categories = Category.eager_load(children: :children).where(parent_id: 0)
   end
 end
