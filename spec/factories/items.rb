@@ -4,11 +4,11 @@ FactoryBot.define do
     name                 { Faker::Pokemon.name }
     price                { Faker::Number.number(4) }
     description          { Faker::Lorem.characters(10) }
-    condition            { '新品・未使用' }
-    shipping_fee         { '送料込み・出品者負担' }
-    shipping_from        { '北海道' }
-    days_before_shipping { '1〜2日で発送' }
-    shipping_method      { '未定' }
+    condition            { 'unused' }
+    shipping_fee         { 'including_postage' }
+    shipping_from        { 'hokkaido' }
+    days_before_shipping { 'in_two_days' }
+    shipping_method      { 'undecided' }
     status               { 1 }
     brand                { 'ルイ ヴィトン' }
     category_id          { 1 }
