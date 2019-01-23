@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_18_063050) do
+ActiveRecord::Schema.define(version: 2019_01_22_075512) do
 
   create_table "brand_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -34,6 +34,37 @@ ActiveRecord::Schema.define(version: 2019_01_18_063050) do
     t.index ["parent_id"], name: "index_categories_on_parent_id"
   end
 
+  create_table "images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "item_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_images_on_item_id"
+  end
+
+  create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "price", null: false
+    t.text "description", null: false
+    t.integer "condition", null: false
+    t.integer "shipping_fee", null: false
+    t.integer "shipping_from", null: false
+    t.integer "days_before_shipping", null: false
+    t.integer "shipping_method", null: false
+    t.integer "status", null: false
+    t.string "brand", null: false
+    t.bigint "category_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "size_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["brand"], name: "index_items_on_brand"
+    t.index ["category_id"], name: "index_items_on_category_id"
+    t.index ["name"], name: "index_items_on_name"
+    t.index ["size_id"], name: "index_items_on_size_id"
+    t.index ["user_id"], name: "index_items_on_user_id"
+  end
+
   create_table "profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "nickname"
     t.text "body"
@@ -54,6 +85,12 @@ ActiveRecord::Schema.define(version: 2019_01_18_063050) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
+  create_table "sizes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "sns_credentials", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -79,6 +116,10 @@ ActiveRecord::Schema.define(version: 2019_01_18_063050) do
   end
 
   add_foreign_key "brands", "brand_groups"
+  add_foreign_key "images", "items"
+  add_foreign_key "items", "categories"
+  add_foreign_key "items", "sizes"
+  add_foreign_key "items", "users"
   add_foreign_key "profiles", "users"
   add_foreign_key "sns_credentials", "users"
 end
