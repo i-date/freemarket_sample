@@ -48,7 +48,7 @@
           %span.identification__form__field__label 都道府県
           %span.identification__form__field__necessary 必須
           .identification__form__field__prefecture
-            = f.select :prefecture, Profile.prefectures.keys, {}, autofocus: true, class: 'identification__form__field__prefecture__body'
+            = f.select :prefecture, Profile.prefectures.keys.map {|k| [Profile.prefectures_i18n[k], k]}, {}, autofocus: true, class: 'identification__form__field__prefecture__body'
             %i.fas.fa-chevron-down
           - if @profile.errors.messages[:prefecture].present?
             - @profile.errors.messages[:prefecture].each do |message|
