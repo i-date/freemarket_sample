@@ -20,6 +20,10 @@ Rails.application.routes.draw do
       patch 'identification', to: 'identification#update', as: :identification_update
     end
 
+    # 商品関連ページ
+    get  'sell', to: 'items#new',    as: :new_item
+    post 'sell', to: 'items#create', as: :create_item
+
     # TODO:仮のURIを修正
     devise_scope :user do
       # session
