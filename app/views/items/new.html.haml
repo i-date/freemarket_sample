@@ -14,7 +14,7 @@
         = f.fields_for :images do |fi|
           - 10.times do |i|
             .image-preview
-              = image_tag '', alt: 'プレビュー', height: '114', width: '114'
+              = image_tag '', alt: 'プレビュー'
               %span 編集
               %span 削除
           .nest-form
