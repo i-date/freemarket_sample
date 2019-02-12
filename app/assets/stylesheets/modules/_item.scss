@@ -388,11 +388,7 @@
           opacity: 0.4;
           cursor: pointer;
 
-          &:hover {
-            opacity: 1;
-          }
-
-          &:first-of-type {
+          &:hover, &:first-of-type {
             opacity: 1;
           }
         }
