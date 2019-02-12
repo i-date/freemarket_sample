@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new]
-  before_action :item_detail, only: [:show]
+  before_action :set_item, only: [:show]
   layout 'devise', only: [:new]
 
   def index
@@ -26,7 +26,7 @@ class ItemsController < ApplicationController
 
   private
 
-  def item_detail
+  def set_item
     @item = Item.find(params[:id])
   end
 
