@@ -23,7 +23,6 @@ $(document).on('turbolinks:load', function () {
   };
 
   // -------------------- 出品ボタンの削除 --------------------
-  var item_detail_url;
-  item_detail_url = $(location).attr("href").match(/\/jp\/\d+/);
+  var item_detail_url = $(location).attr("href").match(/\/jp\/\d+/);
   if (item_detail_url != null) $('.sell-btn').remove();
 });
