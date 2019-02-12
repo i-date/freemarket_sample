@@ -64,19 +64,19 @@ class Item < ApplicationRecord
 
   scope :sort_update_desc, -> { order("updated_at DESC") }
 
-  def self.next_item(item)
+  def self.get_next_item(item)
     where("id > ?", item.id).order("id ASC").first
   end
 
-  def self.previous_item(item)
+  def self.get_previous_item(item)
     where("id < ?", item.id).order("id DESC").first
   end
 
-  def self.user_items(item)
+  def self.get_user_items(item)
     where(user_id: item.user_id).sort_update_desc
   end
 
-  def self.category_items(item)
+  def self.get_category_items(item)
     where(category_id: item.category_id).sort_update_desc
   end
 end

@@ -17,10 +17,10 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @next_item = Item.next_item(@item)
-    @prev_item = Item.previous_item(@item)
-    @user_items = Item.user_items(@item).limit(3)
-    @category_items = Item.category_items(@item).limit(3)
+    @next_item = Item.get_next_item(@item)
+    @prev_item = Item.get_previous_item(@item)
+    @user_items = Item.get_user_items(@item).limit(3)
+    @category_items = Item.get_category_items(@item).limit(3)
     @images = @item.images
   end
 
