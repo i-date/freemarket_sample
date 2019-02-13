@@ -87,3 +87,6 @@ gem 'omniauth-google-oauth2'
 gem 'recaptcha', require: "recaptcha/rails"
 gem 'rack-cors'
 gem 'enum_help'
+gem 'carrierwave'
+gem 'mini_magick'
+gem 'fog-aws'
