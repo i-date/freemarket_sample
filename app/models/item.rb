@@ -1,9 +1,10 @@
 class Item < ApplicationRecord
   belongs_to :category
   belongs_to :user
+  belongs_to :status
   belongs_to :size
   has_many :images
-  accepts_nested_attributes_for :images
+  accepts_nested_attributes_for :images, reject_if: proc { |attributes| attributes['name'].blank? }, allow_destroy: true
 
   enum condition: {
     unused: 1, like_new: 2, invisibly_damaged: 3, slightly_damaged: 4, damaged: 5, bad: 6
@@ -36,31 +37,30 @@ class Item < ApplicationRecord
     presence: true,
     length: { maximum: 40 }
   validates :price,
-    presence: true,
     numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: "販売価格は300以上9,999,999以内で入力してください" }
   validates :description,
     presence: true,
     length: { maximum: 1000 }
   validates :condition,
-    presence: true
+    presence: { message: "選択して下さい" }
   validates :shipping_fee,
-    presence: true
+    presence: { message: "選択して下さい" }
   validates :shipping_from,
-    presence: true
+    presence: { message: "選択して下さい" }
   validates :days_before_shipping,
-    presence: true
+    presence: { message: "選択して下さい" }
   validates :shipping_method,
-    presence: true
-  validates :status,
+    presence: { message: "選択して下さい" }
+  validates :status_id,
     presence: true
   validates :brand,
     length: { maximum: 40 }
   validates :category_id,
-    presence: true
+    numericality: { greater_than: 0, message: "選択して下さい" }
   validates :user_id,
     presence: true
   validates :size_id,
-    presence: true
+    numericality: { greater_than: 0, message: "選択して下さい" }
 
   scope :sort_update_desc, -> { order("updated_at DESC") }
   scope :get_next_item, -> (item) { where("id > ?", item.id).order("id ASC") }
