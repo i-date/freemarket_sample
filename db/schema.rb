@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_22_075512) do
+ActiveRecord::Schema.define(version: 2019_02_13_020920) do
 
   create_table "brand_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -51,17 +51,18 @@ ActiveRecord::Schema.define(version: 2019_01_22_075512) do
     t.integer "shipping_from", null: false
     t.integer "days_before_shipping", null: false
     t.integer "shipping_method", null: false
-    t.integer "status", null: false
     t.string "brand", null: false
     t.bigint "category_id", null: false
     t.bigint "user_id", null: false
     t.bigint "size_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "status_id", null: false
     t.index ["brand"], name: "index_items_on_brand"
     t.index ["category_id"], name: "index_items_on_category_id"
     t.index ["name"], name: "index_items_on_name"
     t.index ["size_id"], name: "index_items_on_size_id"
+    t.index ["status_id"], name: "index_items_on_status_id"
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 
@@ -100,6 +101,12 @@ ActiveRecord::Schema.define(version: 2019_01_22_075512) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_sns_credentials_on_user_id"
+  end
+
+  create_table "statuses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
