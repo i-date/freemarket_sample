@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     # 商品関連ページ
     get  'sell', to: 'items#new',    as: :new_item
     post 'sell', to: 'items#create', as: :create_item
-    get  ':id',  to: 'items#show',   as: :show_item
+    get  'item/:id',  to: 'items#show',   as: :show_item
 
     # TODO:仮のURIを修正
     devise_scope :user do
