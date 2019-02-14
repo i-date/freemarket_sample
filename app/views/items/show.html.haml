@@ -10,10 +10,10 @@
       .detail__box__item
         - if @images.present?
           .detail__box__item__image--large
-            = image_tag @images[0].name, alt: '商品画像'
+            = image_tag @images.first.name.url, alt: '商品画像'
           .detail__box__item__image--small
             - @images.each do |image|
-              = image_tag image.name, alt: '商品画像'
+              = image_tag image.name.url, alt: '商品画像'
         - else
           .detail__box__item__image--large
             = image_tag 'common/no_image.png', alt: '画像がありません'
