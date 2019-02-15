@@ -31,7 +31,7 @@ CSV.foreach('db/size.csv') do |record|
 end
 
 # 商品ステータス
-Status.create([{ name: '販売中'}, { name: '取引中' }, { name: '販売済み' }, { name: '出品停止' }])
+Status.create([{ name: '出品中'}, { name: '取引中' }, { name: '売却済み' }, { name: '出品停止' }])
 
 # 商品
 CSV.foreach('db/item.csv') do |record|
