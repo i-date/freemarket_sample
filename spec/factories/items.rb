@@ -9,7 +9,7 @@ FactoryBot.define do
     shipping_from        { 'hokkaido' }
     days_before_shipping { 'in_two_days' }
     shipping_method      { 'undecided' }
-    status               { 1 }
+    status_id            { 1 }
     brand                { 'ルイ ヴィトン' }
     category_id          { 1 }
     user_id              { 1 }
