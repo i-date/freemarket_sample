@@ -37,32 +37,32 @@ describe ItemsController, type: :controller do
     end
 
     # @itemという変数が正しく定義されているか
-    it "assigns the requested items to @item" do
+    it "assigns the requested item to @item" do
       expect(assigns(:item)).to eq(@items[1])
     end
 
     # @next_itemという変数が正しく定義されているか
-    it "assigns the requested items to @next_item" do
+    it "assigns the requested next_item to @next_item" do
       expect(assigns(:next_item)).to eq(@items.last)
     end
 
     # @prev_itemという変数が正しく定義されているか
-    it "assigns the requested items to @prev_item" do
+    it "assigns the requested prev_item to @prev_item" do
       expect(assigns(:prev_item)).to eq(@items.first)
     end
 
     # @user_itemsという変数が正しく定義されているか
-    it "assigns the requested items to @user_items" do
+    it "assigns the requested user_items to @user_items" do
       expect(assigns(:user_items)).to eq(@items)
     end
 
     # @category_itemsという変数が正しく定義されているか
-    it "assigns the requested items to @category_items" do
+    it "assigns the requested category_items to @category_items" do
       expect(assigns(:category_items)).to eq(@items)
     end
 
     # @imagesという変数が正しく定義されているか
-    it "assigns the requested items to @images" do
+    it "assigns the requested images to @images" do
       expect(assigns(:images)).to eq(@item_image)
     end
 
@@ -80,18 +80,18 @@ describe ItemsController, type: :controller do
       end
 
       # @itemという変数が正しく定義されているか
-      it "assigns the requested items to @item" do
+      it "assigns the requested item to @item" do
         expect(assigns(:item)).to be_a_new(Item)
       end
 
       # @sizesという変数が正しく定義されているか
-      it "assigns the requested items to @sizes" do
+      it "assigns the requested sizes to @sizes" do
         @sizes = create_list(:size, 2)
         expect(assigns(:sizes)).to eq(@sizes)
       end
 
       # @categoriesという変数が正しく定義されているか
-      it "assigns the requested items to @categories" do
+      it "assigns the requested categories to @categories" do
         @categories = create_list(:category, 2, parent_id: 0)
         expect(assigns(:categories)).to eq(@categories)
       end
