@@ -55,38 +55,45 @@
       }
 
       &__image {
-        display: flex;
         width: 100%;
-        justify-content: space-between;
-        flex-wrap: wrap;
 
         .image-preview {
-          display: none;
-          width: 116px;
-          height: 160px;
-          margin-top: 16px;
-          background: $gray-back;
-          border: 1px solid $gray;
+          display: flex;
+          width: 100%;
+          justify-content: flex-start;
+          flex-wrap: wrap;
 
-          img {
-            display: block;
-            width: 114px;
-            height: 114px;
-            object-fit: contain;
-          }
+          li {
+            width: 116px;
+            margin: 16px 0 0 10px;
+            background: $gray-back;
+            border: 1px solid $gray;
 
-          span {
-            display: inline-block;
-            width: 50%;
-            height: 44px;
-            color: $light-blue;
-            font-size: 14px;
-            line-height: 44px;
-            text-align: center;
-            @include hover;
+            &:nth-of-type(5n+1) {
+              margin-left: 0;
+            }
 
-            &:first-of-type {
-              border-right: 1px solid $gray;
+            img {
+              display: block;
+              width: 114px;
+              height: 114px;
+              object-fit: contain;
+            }
+
+            span {
+              display: inline-block;
+              width: 50%;
+              height: 44px;
+              color: $light-blue;
+              font-size: 14px;
+              line-height: 44px;
+              text-align: center;
+              cursor: pointer;
+              @include hover;
+
+              &:first-of-type {
+                border-right: 1px solid $gray;
+              }
             }
           }
         }
@@ -246,6 +253,10 @@
           }
 
           &--right {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+
             span {
               padding-right: 8px;
               color: $black;
@@ -323,6 +334,13 @@
           opacity: 0.7;
           transition-duration: 0.5s;
         }
+      }
+
+      .error {
+        margin-top: 8px;
+        display: block;
+        color: $red;
+        font-size: 14px;
       }
     }
   }
@@ -678,12 +696,17 @@
 
   &__box {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     width: 100%;
     padding-bottom: 20px;
   }
 
   .card {
     width: 220px;
+    margin-left: 20px;
+
+    &:first-of-type {
+      margin-left: 0;
+    }
   }
 }

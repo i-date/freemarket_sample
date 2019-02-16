@@ -1,7 +1,7 @@
 -# TODO:link修正
 = link_to show_item_path(item), class: 'card' do
-  .card__photo{ class: "#{'card__photo-sold' if item.status == 2}" }
-    = item.images.present? ? (image_tag item.images[0].name, alt: '商品画像') : (image_tag 'common/no_image.png', alt: '画像がありません')
+  .card__photo{ class: "#{'card__photo-sold' if item.status_id != 1}" }
+    = item.images.present? ? (image_tag item.images.first.name.url, alt: '商品画像') : (image_tag 'common/no_image.png', alt: '画像がありません')
   .card__body
     %h3.card__body__head= item.name
     .card__body__content
