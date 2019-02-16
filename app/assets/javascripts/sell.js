@@ -71,7 +71,13 @@ $(document).on('turbolinks:load', function () {
       category_container.children('.top').css('margin-bottom', '0')
       middle_category.each(function () {
         middle_data = $(this).data('val');
-        if (top_category_id == middle_data) $(CATEGORY_GROUP + ' .middle .field_with_errors').length ? $(this).parent().parent().show() : $(this).parent().show();
+        if (top_category_id == middle_data) {
+          if ($(CATEGORY_GROUP + ' .middle .field_with_errors').length) {
+            $(this).parent().parent().show();
+          } else {
+            $(this).parent().show();
+          }
+        }
       })
     }
   })
@@ -88,7 +94,13 @@ $(document).on('turbolinks:load', function () {
       category_container.children('.middle').css('margin-bottom', '0')
       bottom_category.each(function () {
         bottom_data = $(this).data('val');
-        if (middle_category_id == bottom_data) $(CATEGORY_GROUP + ' .bottom .field_with_errors').length ? $(this).parent().parent().show() : $(this).parent().show();
+        if (middle_category_id == bottom_data) {
+          if ($(CATEGORY_GROUP + ' .bottom .field_with_errors').length) {
+            $(this).parent().parent().show();
+          } else {
+            $(this).parent().show();
+          }
+        }
       })
     }
   })
@@ -112,7 +124,11 @@ $(document).on('turbolinks:load', function () {
 
   item_price_field.on('change', function () {
     // 入力価格取得
-    item_price = $(this).children('input').length ? $(this).children('input').val() : $(this).children('.field_with_errors').children('input').val();
+    if ($(this).children('input').length) {
+      item_price = $(this).children('input').val();
+    } else {
+      item_price = $(this).children('.field_with_errors').children('input').val();
+    }
     // 手数料と利益計算
     item_fee = Math.floor(item_price / 10);
     item_benefit = separate(item_price - item_fee);
