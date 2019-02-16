@@ -113,7 +113,6 @@ $(document).on('turbolinks:load', function () {
   item_price_field.on('change', function () {
     // 入力価格取得
     item_price = $(this).children('input').length ? $(this).children('input').val() : $(this).children('.field_with_errors').children('input').val();
-    console.log(item_price);
     // 手数料と利益計算
     item_fee = Math.floor(item_price / 10);
     item_benefit = separate(item_price - item_fee);
