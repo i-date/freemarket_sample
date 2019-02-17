@@ -69,7 +69,10 @@
       %span= "¥ #{number_with_delimiter(@item.price)}"
       %span （税込）
       %span= (@item.shipping_fee == "including_postage") ? "送料込み" : "着払い"
-    = link_to '購入画面に進む', '#', class: 'detail__purchase-link' unless current_user.id == @item.user_id
+    - if user_signed_in?
+      = link_to '購入画面に進む', '#', class: 'detail__purchase-link' unless current_user.id == @item.user_id
+    - else
+      = link_to '購入画面に進む', new_user_session_path, class: 'detail__purchase-link'
     -# 商品説明
     .detail__description= @item.description
     -# その他
@@ -87,7 +90,7 @@
         %span あんしん・あんぜんへの取り組み
 
   -# 出品ユーザーによる編集
-  - if current_user.id == @item.user_id
+  - if user_signed_in? && current_user.id == @item.user_id
     .seller
       = link_to '商品の編集', edit_item_path(@item), class: 'seller__link'
       %p or
