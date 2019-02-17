@@ -96,7 +96,7 @@
       %p or
       = link_to '出品を再開する', '#', method: :put, class: 'seller__link start-stop' if @item.status_id == 4
       = link_to '商品を一旦停止する', '#', method: :put, class: 'seller__link start-stop' unless @item.status_id == 4
-      = link_to 'この商品を削除する', '#', method: :delete, confirm: "本当に削除しますか？", class: 'seller__link'
+      = link_to 'この商品を削除する', item_path(@item), method: :delete, data: { confirm: "本当に削除しますか？" }, class: 'seller__link'
 
   -# コメント
   .comment
