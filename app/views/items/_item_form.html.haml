@@ -7,7 +7,7 @@
       %span.item-registration__form__group__box__necessary 必須
       %p.item-registration__form__group__notice 最大10枚までアップロードできます
       .item-registration__form__group__image
-        = f.fields_for @images do |fi|
+        = f.fields_for @image do |fi|
           %ul.image-preview
           .nest-form
             .nest-form__head

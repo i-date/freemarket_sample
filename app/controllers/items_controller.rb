@@ -9,7 +9,7 @@ class ItemsController < ApplicationController
 
   def new
     @item = Item.new
-    @images = Image.new
+    @image = Image.new
     @sizes = Size.all
   end
 
@@ -87,7 +87,7 @@ class ItemsController < ApplicationController
     @item[:size_id] = ''
     @item[:price] = ''
     @sizes = Size.all
-    @images = Image.new
+    @image = Image.new
   end
 
   def to_int_category_id_and_size_id
