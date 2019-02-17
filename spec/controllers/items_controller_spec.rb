@@ -78,6 +78,11 @@ describe ItemsController, type: :controller do
         expect(assigns(:item)).to be_a_new(Item)
       end
 
+      # @imageという変数が正しく定義されているか
+      it "assigns the requested item to @image" do
+        expect(assigns(:image)).to be_a_new(Image)
+      end
+
       # @sizesという変数が正しく定義されているか
       it "assigns the requested sizes to @sizes" do
         @sizes = create_list(:size, 2)
