@@ -6,12 +6,6 @@ describe ItemsController, type: :controller do
   let(:sizes) { create_list(:size, 2) }
   let(:statuses) { create_list(:status, 2) }
   let(:image) { Rack::Test::UploadedFile.new(Rails.root.join('spec', 'fixtures', 'no_image.png')) }
-  let(:params) {
-    { params: { "images" => { "name" => { "1" => image } }, "item" => { "name"=>"テスト", "description"=>"テスト", "category_id"=>"159", "size_id"=>"1", "brand"=>"", "condition"=>"unused", "shipping_fee"=>"including_postage", "shipping_method"=>"undecided", "shipping_from"=>"hokkaido", "days_before_shipping"=>"in_two_days", "price"=>"9999999"} } }
-  }
-  let(:params_without_item_name_and_images) {
-    { params: { "item" => { "name"=>"", "description"=>"テスト", "category_id"=>"159", "size_id"=>"1", "brand"=>"", "condition"=>"unused", "shipping_fee"=>"including_postage", "shipping_method"=>"undecided", "shipping_from"=>"hokkaido", "days_before_shipping"=>"in_two_days", "price"=>"9999999"} } }
-  }
 
   describe 'GET #index' do
     # @itemsという変数が正しく定義されているか
@@ -107,15 +101,12 @@ describe ItemsController, type: :controller do
       # 意図したビューにリダイレクトしているか
       it "redirects to new_user_session_path" do
         get :new
-        redirect_to new_user_session_path
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
   end
 
   describe 'POST #create' do
-    before(:all) do
-      Rails.application.load_seed
-    end
 
     context "login" do
       before do
@@ -123,31 +114,53 @@ describe ItemsController, type: :controller do
       end
 
       context "can save" do
+        before do
+          @item = build(:item, user_id: user.id, category_id: categories.first.id, size_id: sizes.first.id, status_id: statuses.first.id)
+          @item_params = @item.attributes.tap do |ip|
+            ip["category_id"] = ip["category_id"].to_s
+            ip["size_id"] = ip["size_id"].to_s
+          end
+        end
 
-        # 保存は成功か
-        it 'new item and image' do
-          expect{post :create, params}.to change(Image, :count).by(1)
-          expect{post :create, params}.to change(Item, :count).by(1)
+        # 商品の保存は成功か
+        it 'new item' do
+          expect{post :create, params: {"images" => { "name" => { "1" => image } }, item: @item_params}}.to change(Item, :count).by(1)
+        end
+
+        # イメージの保存は成功か
+        it 'new image' do
+          expect{post :create, params: {"images" => { "name" => { "1" => image } }, item: @item_params}}.to change(Image, :count).by(1)
         end
 
         # 意図したビューにリダイレクトしているか
         it "redirects to root_path" do
-          post :create, params
-          redirect_to root_path
+          post :create, params: {"images" => { "name" => { "1" => image } }, item: @item_params}
+          expect(response).to redirect_to(root_path)
         end
       end
 
       context "can not save" do
+        before do
+          @item = build(:item, user_id: user.id, category_id: categories.first.id, size_id: sizes.first.id, status_id: statuses.first.id)
+          @item_params = @item.attributes.tap do |ip|
+            ip["category_id"] = ip["category_id"].to_s
+            ip["size_id"] = ''
+          end
+        end
 
-        # 保存は失敗か
-        it 'new item and image' do
-          expect{post :create, params_without_item_name_and_images}.to change(Image, :count).by(0)
-          expect{post :create, params_without_item_name_and_images}.to change(Item, :count).by(0)
+        # 商品の保存は失敗か
+        it 'new item' do
+          expect{post :create, params: {"images" => { "name" => { "1" => '' } }, item: @item_params}}.to change(Item, :count).by(0)
+        end
+
+        # イメージの保存は失敗か
+        it 'new image' do
+          expect{post :create, params: {"images" => { "name" => { "1" => '' } }, item: @item_params}}.to change(Image, :count).by(0)
         end
 
         # 該当するビューが描画されているか
         it "renders the :new template" do
-          post :create, params
+          post :create, params: {"images" => { "name" => { "1" => '' } }, item: @item_params}
           expect(response).to render_template :new
         end
       end
@@ -157,7 +170,147 @@ describe ItemsController, type: :controller do
 
       # 意図したビューにリダイレクトしているか
       it "redirects to new_user_session_path" do
-        redirect_to new_user_session_path
+        @item = build(:item, user_id: user.id, category_id: categories.first.id, size_id: sizes.first.id, status_id: statuses.first.id)
+        @item_params = @item.attributes.tap do |ip|
+          ip["category_id"] = ip["category_id"].to_s
+          ip["size_id"] = ip["size_id"].to_s
+        end
+        post :create, params: {"images" => { "name" => { "1" => image } }, item: @item_params}
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+  end
+
+  describe 'GET #edit' do
+    context "login" do
+      before do
+        login_user user
+        @item = create(:item, user_id: user.id, category_id: categories.first.id, size_id: sizes.first.id, status_id: statuses.first.id)
+        get :edit, params: { id: @item.id }
+      end
+
+      # @itemという変数が正しく定義されているか
+      it "assigns the requested item to @item" do
+        expect(assigns(:item)).to eq(@item)
+      end
+
+      # @sizesという変数が正しく定義されているか
+      it "assigns the requested sizes to @sizes" do
+        expect(assigns(:sizes)).to eq(sizes)
+      end
+
+      # @categoriesという変数が正しく定義されているか
+      it "assigns the requested categories to @categories" do
+        expect(assigns(:categories)).to eq(categories)
+      end
+
+      # 該当するビューが描画されているか
+      it "renders the :edit template" do
+        expect(response).to render_template :edit
+      end
+    end
+
+    context "not login" do
+
+      # 意図したビューにリダイレクトしているか
+      it "redirects to new_user_session_path" do
+        @item = create(:item, user_id: user.id, category_id: categories.first.id, size_id: sizes.first.id, status_id: statuses.first.id)
+        get :edit, params: {id: @item.id}
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+  end
+
+  describe 'PATCH #update' do
+    context "login" do
+      before do
+        @user1 = create(:user)
+        login_user @user1
+      end
+
+      context "current user is seller exhibitting the item" do
+
+        context "can update" do
+          before do
+            @item = create(:item, user_id: @user1.id, category_id: categories.first.id, size_id: sizes.first.id, status_id: statuses.first.id)
+            @item_params = @item.attributes.tap do |ip|
+              ip["category_id"] = ip["category_id"].to_s
+              ip["size_id"] = ip["size_id"].to_s
+            end
+          end
+
+          # 更新は成功か
+          it 'item' do
+            patch :update, params: {id: @item.id, "images" => { "name" => { "1" => image } }, item: @item_params}
+            expect(assigns(:item)).to eq(@item)
+          end
+
+          # プロパティは更新されているか
+          it "changes @item's attributes" do
+            @item_params["name"] = "アップデート"
+            patch :update, params: {id: @item.id, "images" => { "name" => { "1" => image } }, item: @item_params}
+            @item.reload
+            expect(@item.name).to eq("アップデート")
+          end
+
+          # 意図したビューにリダイレクトしているか
+          it "redirects to item_path" do
+            patch :update, params: {id: @item.id, "images" => { "name" => { "1" => image } }, item: @item_params}
+            expect(response).to redirect_to(item_path)
+          end
+        end
+
+        context "can not update" do
+          before do
+            @item = create(:item, user_id: @user1.id, category_id: categories.first.id, size_id: sizes.first.id, status_id: statuses.first.id)
+            @item_params = @item.attributes.tap do |ip|
+              ip["category_id"] = ip["category_id"].to_s
+              ip["size_id"] = ''
+            end
+          end
+
+          # 更新は失敗か
+          it 'item' do
+            @before_name = @item_params["name"]
+            @item_params["name"] = "アップデート"
+            patch :update, params: {id: @item.id, "images" => { "name" => { "1" => image } }, item: @item_params}
+            @item.reload
+            expect(@item.name).to eq(@before_name)
+          end
+
+          # 該当するビューが描画されているか
+          it "renders the :edit template" do
+            patch :update, params: {id: @item.id, item: @item_params}
+            expect(response).to render_template :edit
+          end
+        end
+      end
+
+      context "current user is not seller exhibitting the item" do
+        # 意図したビューにリダイレクトしているか
+        it "redirects to root_path" do
+          @item = create(:item, user_id: user.id, category_id: categories.first.id, size_id: sizes.first.id, status_id: statuses.first.id)
+          @item_params = @item.attributes.tap do |ip|
+            ip["category_id"] = ip["category_id"].to_s
+            ip["size_id"] = ip["size_id"].to_s
+          end
+          patch :update, params: {id: @item.id, "images" => { "name" => { "1" => image } }, item: @item_params}
+          expect(response).to redirect_to(root_path)
+        end
+      end
+    end
+
+    context "not login" do
+
+      # 意図したビューにリダイレクトしているか
+      it "redirects to new_user_session_path" do
+        @item = create(:item, user_id: user.id, category_id: categories.first.id, size_id: sizes.first.id, status_id: statuses.first.id)
+        @item_params = @item.attributes.tap do |ip|
+          ip["category_id"] = ip["category_id"].to_s
+          ip["size_id"] = ip["size_id"].to_s
+        end
+        patch :update, params: {id: @item.id, "images" => { "name" => { "1" => image } }, item: @item_params}
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
   end
