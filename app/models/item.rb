@@ -3,8 +3,7 @@ class Item < ApplicationRecord
   belongs_to :user
   belongs_to :status
   belongs_to :size
-  has_many :images
-  accepts_nested_attributes_for :images, reject_if: proc { |attributes| attributes['name'].blank? }, allow_destroy: true
+  has_many :images, dependent: :delete_all
 
   enum condition: {
     unused: 1, like_new: 2, invisibly_damaged: 3, slightly_damaged: 4, damaged: 5, bad: 6
