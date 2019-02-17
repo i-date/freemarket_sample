@@ -585,6 +585,41 @@
   }
 }
 
+.seller {
+  width: 100%;
+  margin: 24px 0;
+  padding: 24px;
+  background-color: $white;
+
+  &__link {
+    width: 100%;
+    height: 60px;
+    margin-bottom: 20px;
+    background-color: #ea352d;
+    color: #fff;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:last-of-type, &:nth-last-of-type(2) {
+      background-color: #aaa;
+    }
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  p {
+    margin-bottom: 20px;
+    color: $black;
+    font-size: 14px;
+    text-align: center;
+    line-height: 1;
+  }
+}
+
 .comment {
   width: 100%;
   padding: 24px;
