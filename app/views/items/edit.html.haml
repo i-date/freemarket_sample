@@ -1,0 +1,5 @@
+-# ページタイトル
+- content_for(:title) { '商品編集 - メルカリ サンプル' }
+
+-# コンテンツ
+= render partial: 'item_form', locals: { url: item_path, method: 'patch' }

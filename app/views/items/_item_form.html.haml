@@ -1,0 +1,177 @@
+.item-registration
+  %h2.item-registration__head 商品の情報を入力
+  = form_for @item, url: url, method: method.to_sym, html: { class: 'item-registration__form' } do |f|
+    -# 画像
+    .item-registration__form__group
+      %span.item-registration__form__group__box__label.large-label 出品画像
+      %span.item-registration__form__group__box__necessary 必須
+      %p.item-registration__form__group__notice 最大10枚までアップロードできます
+      .item-registration__form__group__image
+        = f.fields_for @image do |fi|
+          %ul.image-preview
+          .nest-form
+            .nest-form__head
+              %p ドラッグアンドドロップ
+              %p またはクリックしてファイルをアップロード
+            = fi.file_field :name, name: 'images[name][1]', id: 'image1', style: 'display: none;'
+      - if @image_error.present?
+        %p.error= @image_error
+
+    -# 商品名・説明
+    .item-registration__form__group
+      -# 商品名
+      %span.item-registration__form__group__box__label 商品名
+      %span.item-registration__form__group__box__necessary 必須
+      - if @item.errors.messages[:name].present?
+        - @item.errors.messages[:name].each do |message|
+          %p.error= message
+      .item-registration__form__group__box__select
+        = f.text_field :name, autofocus: true, placeholder: "商品名（必須40文字まで）"
+      -# 商品の説明
+      %span.item-registration__form__group__box__label 商品の説明
+      %span.item-registration__form__group__box__necessary 必須
+      - if @item.errors.messages[:description].present?
+        - @item.errors.messages[:description].each do |message|
+          %p.error= message
+      .item-registration__form__group__box__select
+        = f.text_area :description, autofocus: true, placeholder: "商品の説明（必須 1,000文字以内）（色、素材、重さ、定価、注意点など）例）2010年頃に1万円で購入したジャケットです。ライトグレーで傷はありません。あわせやすいのでおすすめです。"
+
+    -# 商品の詳細
+    .item-registration__form__group
+      %h3.item-registration__form__group__head 商品の詳細
+      .item-registration__form__group__box
+        -# カテゴリー
+        .item-registration__form__group__box__category
+          %span.item-registration__form__group__box__label カテゴリー
+          %span.item-registration__form__group__box__necessary 必須
+          - if @item.errors.messages[:category_id].present?
+            - @item.errors.messages[:category_id].each do |message|
+              %p.error= message
+          -# トップレベル
+          .item-registration__form__group__box__select.top
+            = f.collection_select :category_id, @categories, :id, :name, { prompt: '---' }, autofocus: true, class: 'item-registration__form__group__box__select__body'
+            %i.fas.fa-chevron-down
+          -# ミドルレベル
+          - @categories.each do |parent|
+            .item-registration__form__group__box__select.middle
+              = f.collection_select :category_id, parent.children, :id, :name, { prompt: '---' }, data: {val: "#{parent.id}"}, autofocus: true, class: 'item-registration__form__group__box__select__body'
+              %i.fas.fa-chevron-down
+            -# ボトムレベル
+            - parent.children.each do |child|
+              .item-registration__form__group__box__select.bottom
+                = f.collection_select :category_id, child.children, :id, :name, { prompt: '---' }, data: {val: "#{child.id}"}, autofocus: true, class: 'item-registration__form__group__box__select__body'
+                %i.fas.fa-chevron-down
+          = f.hidden_field :category_id
+        -# サイズ
+        %span.item-registration__form__group__box__label サイズ
+        %span.item-registration__form__group__box__necessary 必須
+        - if @item.errors.messages[:size_id].present?
+          - @item.errors.messages[:size_id].each do |message|
+            %p.error= message
+        .item-registration__form__group__box__select
+          = f.collection_select :size_id, @sizes, :id, :name, { prompt: '---' }, autofocus: true, class: 'item-registration__form__group__box__select__body'
+          %i.fas.fa-chevron-down
+        -# ブランド
+        %span.item-registration__form__group__box__label ブランド
+        %span.item-registration__form__group__box__option 任意
+        - if @item.errors.messages[:brand].present?
+          - @item.errors.messages[:brand].each do |message|
+            %p.error= message
+        .item-registration__form__group__box__select
+          = f.text_field :brand, autofocus: true, placeholder: "例）シャネル"
+        -# 商品の状態
+        %span.item-registration__form__group__box__label 商品の状態
+        %span.item-registration__form__group__box__necessary 必須
+        - if @item.errors.messages[:condition].present?
+          - @item.errors.messages[:condition].each do |message|
+            %p.error= message
+        .item-registration__form__group__box__select
+          = f.select :condition, Item.conditions.keys.map {|k| [Item.conditions_i18n[k], k]}, { prompt: '---' }, autofocus: true, class: 'item-registration__form__group__box__select__body'
+          %i.fas.fa-chevron-down
+
+    -# 配送について
+    .item-registration__form__group
+      %h3.item-registration__form__group__head 配送について
+      = link_to '?', '#', class: 'item-registration__form__group__help'
+      .item-registration__form__group__box
+        -# 配送料の負担
+        %span.item-registration__form__group__box__label 配送料の負担
+        %span.item-registration__form__group__box__necessary 必須
+        - if @item.errors.messages[:shipping_fee].present?
+          - @item.errors.messages[:shipping_fee].each do |message|
+            %p.error= message
+        .item-registration__form__group__box__select
+          = f.select :shipping_fee, Item.shipping_fees.keys.map {|k| [Item.shipping_fees_i18n[k], k]}, { prompt: '---' }, autofocus: true, class: 'item-registration__form__group__box__select__body'
+          %i.fas.fa-chevron-down
+        -# 配送方法
+        %span.item-registration__form__group__box__label 配送方法
+        %span.item-registration__form__group__box__necessary 必須
+        - if @item.errors.messages[:shipping_method].present?
+          - @item.errors.messages[:shipping_method].each do |message|
+            %p.error= message
+        .item-registration__form__group__box__select
+          = f.select :shipping_method, Item.shipping_methods.keys.map {|k| [Item.shipping_methods_i18n[k], k]}, { prompt: '---' }, autofocus: true, class: 'item-registration__form__group__box__select__body'
+          %i.fas.fa-chevron-down
+        -# 配送元の地域
+        %span.item-registration__form__group__box__label 発送元の地域
+        %span.item-registration__form__group__box__necessary 必須
+        - if @item.errors.messages[:shipping_from].present?
+          - @item.errors.messages[:shipping_from].each do |message|
+            %p.error= message
+        .item-registration__form__group__box__select
+          = f.select :shipping_from, Item.shipping_froms.keys.map {|k| [Item.shipping_froms_i18n[k], k]}, { prompt: '---' }, autofocus: true, class: 'item-registration__form__group__box__select__body'
+          %i.fas.fa-chevron-down
+        -# 発送までの日数
+        %span.item-registration__form__group__box__label 発送までの日数
+        %span.item-registration__form__group__box__necessary 必須
+        - if @item.errors.messages[:days_before_shipping].present?
+          - @item.errors.messages[:days_before_shipping].each do |message|
+            %p.error= message
+        .item-registration__form__group__box__select
+          = f.select :days_before_shipping, Item.days_before_shippings.keys.map {|k| [Item.days_before_shippings_i18n[k], k]}, { prompt: '---' }, autofocus: true, class: 'item-registration__form__group__box__select__body'
+          %i.fas.fa-chevron-down
+
+    -# 販売価格
+    .item-registration__form__group
+      %h3.item-registration__form__group__head 販売価格(300〜9,999,999)
+      = link_to '?', '#', class: 'item-registration__form__group__help'
+      .item-registration__form__group__box
+        .item-registration__form__group__box__list
+          .item-registration__form__group__box__list--left
+            %span.item-registration__form__group__box__label 価格
+            %span.item-registration__form__group__box__necessary 必須
+          .item-registration__form__group__box__list--right
+            %span ¥
+            = f.text_field :price, autofocus: true, placeholder: "例）300"
+        .item-registration__form__group__box__list
+          .item-registration__form__group__box__list--left
+            %p 販売手数料(10%)
+          .item-registration__form__group__box__list--right
+            %p -
+        .item-registration__form__group__box__list
+          .item-registration__form__group__box__list--left
+            %h3 販売利益
+          .item-registration__form__group__box__list--right
+            %h3 -
+        - if @item.errors.messages[:price].present?
+          - @item.errors.messages[:price].each do |message|
+            %p.error= message
+
+    -# 確認事項と出品ボタン
+    .item-registration__form__group
+      %div
+        = link_to '禁止されている出品', '#'
+        %p 、
+        = link_to '行為', '#'
+        %p を必ずご確認ください。
+      %div
+        %p またブランド品でシリアルナンバー等がある場合はご記載ください。
+        = link_to '偽ブランドの販売', '#'
+        %p は犯罪であり処罰される可能性があります。
+      %div
+        %p また、出品をもちまして
+        = link_to '加盟店規約', '#'
+        %p に同意したことになります。
+      .item-registration__form__group__actions
+        = f.submit "出品する"
+      = link_to 'もどる', root_path, class: 'item-registration__form__group__return'

@@ -69,7 +69,10 @@
       %span= "¥ #{number_with_delimiter(@item.price)}"
       %span （税込）
       %span= (@item.shipping_fee == "including_postage") ? "送料込み" : "着払い"
-    = link_to '購入画面に進む', '#', class: 'detail__purchase-link'
+    - if user_signed_in?
+      = link_to '購入画面に進む', '#', class: 'detail__purchase-link' unless current_user.id == @item.user_id
+    - else
+      = link_to '購入画面に進む', new_user_session_path, class: 'detail__purchase-link'
     -# 商品説明
     .detail__description= @item.description
     -# その他
@@ -86,6 +89,15 @@
         %i.fas.fa-lock
         %span あんしん・あんぜんへの取り組み
 
+  -# 出品ユーザーによる編集
+  - if user_signed_in? && current_user.id == @item.user_id
+    .seller
+      = link_to '商品の編集', edit_item_path(@item), class: 'seller__link'
+      %p or
+      = link_to '出品を再開する', '#', method: :put, class: 'seller__link start-stop' if @item.status_id == 4
+      = link_to '商品を一旦停止する', '#', method: :put, class: 'seller__link start-stop' unless @item.status_id == 4
+      = link_to 'この商品を削除する', '#', method: :delete, confirm: "本当に削除しますか？", class: 'seller__link'
+
   -# コメント
   .comment
     %p.comment__note 相手のことを考え丁寧なコメントを心がけましょう。不快な言葉遣いなどは利用制限や退会処分となることがあります。
@@ -97,11 +109,11 @@
   -# 商品ページリンク
   .prev-next
     - if @prev_item.present?
-      = link_to show_item_path(@prev_item), class: 'prev-next--left' do
+      = link_to item_path(@prev_item), class: 'prev-next--left' do
         %i.fas.fa-chevron-left
         %span= @prev_item.name
     - if @next_item.present?
-      = link_to show_item_path(@next_item), class: 'prev-next--right' do
+      = link_to item_path(@next_item), class: 'prev-next--right' do
         %span= @next_item.name
         %i.fas.fa-chevron-right
 

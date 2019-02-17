@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
-  before_action :set_item, only: [:show]
-  layout 'devise', only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+  before_action :set_item, only: [:show, :edit, :update]
+  layout 'devise', only: [:new, :create, :edit, :update]
 
   def index
     @items = Item.sort_update_desc.limit(4)
@@ -9,7 +9,7 @@ class ItemsController < ApplicationController
 
   def new
     @item = Item.new
-    @item.images.build
+    @image = Image.new
     @sizes = Size.all
   end
 
@@ -18,11 +18,7 @@ class ItemsController < ApplicationController
     if @item.save & save_images(@item, image_params)
       redirect_to root_path, notice: '出品しました。'
     else
-      # 無効なvalue値を削除：category_id、size_id
-      @item[:category_id] = ''
-      @item[:size_id] = ''
-      @item.images.build
-      @sizes = Size.all
+      initialize_item_size_image
       render :new
     end
   end
@@ -33,6 +29,30 @@ class ItemsController < ApplicationController
     @user_items = Item.get_user_items(@item).limit(3)
     @category_items = Item.get_category_items(@item).limit(3)
     @images = @item.images
+  end
+
+  def edit
+    initialize_item_size_image
+  end
+
+  def update
+    redirect_to root_path and return unless current_user.id == @item.user_id
+    if @item.update(to_int_category_id_and_size_id)
+      @item.images.each do |image|
+        image.destroy
+      end
+      if save_images(@item, image_params)
+        redirect_to item_path(@item)
+      else
+        @item = replace_item_value(@item, to_int_category_id_and_size_id)
+        initialize_item_size_image
+        render :edit
+      end
+    else
+      @item = replace_item_value(@item, to_int_category_id_and_size_id)
+      initialize_item_size_image
+      render :edit
+    end
   end
 
   private
@@ -61,6 +81,15 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
+  def initialize_item_size_image
+    # 無効なvalue値を削除：category_id、size_id
+    @item[:category_id] = ''
+    @item[:size_id] = ''
+    @item[:price] = ''
+    @sizes = Size.all
+    @image = Image.new
+  end
+
   def to_int_category_id_and_size_id
     item_params.tap do |ip|
       ip[:category_id] = ip[:category_id].to_i
@@ -78,5 +107,12 @@ class ItemsController < ApplicationController
       @image_error = "画像がありません"
       return false
     end
+  end
+
+  def replace_item_value(item, hash)
+    hash.each do |key, val|
+      item[key.to_sym] = val
+    end
+    return item
   end
 end

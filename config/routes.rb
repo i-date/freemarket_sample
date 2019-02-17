@@ -21,9 +21,12 @@ Rails.application.routes.draw do
     end
 
     # 商品関連ページ
-    get  'sell', to: 'items#new',    as: :new_item
-    post 'sell', to: 'items#create', as: :create_item
-    get  'item/:id',  to: 'items#show',   as: :show_item
+    get  'sell',          to: 'items#new',    as: :new_item
+    post 'sell',          to: 'items#create', as: :create_item
+    resources :items, only: [:show, :edit, :update]
+    # get  'item/:id',      to: 'items#show',   as: :show_item
+    # get  'item/:id/edit', to: 'items#edit',   as: :edit_item
+    # put  'item',          to: 'items#edit',   as: :update_item
 
     # TODO:仮のURIを修正
     devise_scope :user do
