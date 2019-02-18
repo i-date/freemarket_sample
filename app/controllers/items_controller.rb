@@ -5,7 +5,7 @@ class ItemsController < ApplicationController
 
   def index
     @items = Item.sort_update_desc.limit(4)
-    @none_breadcrumbs_flag = 'none';
+    @none_breadcrumbs_flag = true;
   end
 
   def new
