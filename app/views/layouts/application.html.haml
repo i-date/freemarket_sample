@@ -12,6 +12,10 @@
     -# ヘッダー
     %header.header
       = render partial: "partial/header"
+    -# パンくずリスト
+    - unless @none_breadcrumbs_flag.present?
+      %nav.bread-container
+        = breadcrumbs separator: "#{content_tag(:i, '', :class=>'fas fa-chevron-right')}"
     -# バナースライド
     = yield :slide
     -# メインコンテンツ
