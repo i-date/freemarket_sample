@@ -1,6 +1,9 @@
 -# ページタイトル
 - content_for(:title) { "メルカリ - #{@item.name}" }
 
+-# パンくずリスト
+- breadcrumb :item, @item
+
 -# コンテンツ
 .detail-container
   .detail
