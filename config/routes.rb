@@ -21,8 +21,9 @@ Rails.application.routes.draw do
     end
 
     # 商品関連ページ
-    get  'sell',          to: 'items#new',    as: :new_item
-    post 'sell',          to: 'items#create', as: :create_item
+    get  'sell',   to: 'items#new',    as: :new_item
+    post 'sell',   to: 'items#create', as: :create_item
+    get  'search', to: 'items#search', as: :search_items
     resources :items, only: [:show, :edit, :update, :destroy]
 
     # TODO:仮のURIを修正
