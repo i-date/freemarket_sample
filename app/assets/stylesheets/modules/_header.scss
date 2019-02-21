@@ -42,6 +42,10 @@
           }
         }
 
+        &__action {
+          display: none;
+        }
+
         i {
           position: absolute;
           top: 0;
@@ -50,6 +54,7 @@
           height: 100%;
           text-align: center;
           line-height: 36px;
+          cursor: pointer;
         }
       }
     }
