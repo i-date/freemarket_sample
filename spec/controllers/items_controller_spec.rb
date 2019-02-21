@@ -390,4 +390,98 @@ describe ItemsController, type: :controller do
       end
     end
   end
+
+  describe 'GET #search' do
+    before do
+      @category_top = create(:category, name: 'top')
+      @category_middle = create(:category, name: 'middle', parent_id: 1)
+      @category_bottom = create(:category, name: 'bottom', parent_id: 2, grandparent_id: 1)
+      @item = create(:item, name: 'アイテム', brand: 'メルカリ', user_id: user.id, category_id: @category_bottom.id, size_id: sizes.first.id, status_id: statuses.first.id)
+    end
+
+    context "with keywords" do
+
+      # キーワード：nameにヒットする場合
+      context "of name" do
+
+        # @search_resultという変数が正しく定義されているか
+        it "assigns the requested item to @search_result" do
+          get :search, params: { q: { name_or_brand_or_category_name_or_category_parent_name_or_category_grandparent_name_cont: "アイテム" } }
+          expect(assigns(:search_result)).to match_array(@item)
+        end
+      end
+
+      # キーワード：nameにヒットする場合
+      context "of name" do
+
+        # @search_resultという変数が正しく定義されているか
+        it "assigns the requested item to @search_result" do
+          get :search, params: { q: { name_or_brand_or_category_name_or_category_parent_name_or_category_grandparent_name_cont: "アイテム" } }
+          expect(assigns(:search_result)).to match_array(@item)
+        end
+      end
+
+      # キーワード：@item.category.nameにヒットする場合
+      context "of @item.category.name" do
+
+        # @search_resultという変数が正しく定義されているか
+        it "assigns the requested item to @search_result" do
+          get :search, params: { q: { name_or_brand_or_category_name_or_category_parent_name_or_category_grandparent_name_cont: "bottom" } }
+          expect(assigns(:search_result)).to match_array(@item)
+        end
+      end
+
+      # キーワード：@item.category.parent.nameにヒットする場合
+      context "of @item.category.parent.name" do
+
+        # @search_resultという変数が正しく定義されているか
+        it "assigns the requested item to @search_result" do
+          get :search, params: { q: { name_or_brand_or_category_name_or_category_parent_name_or_category_grandparent_name_cont: "middle" } }
+          expect(assigns(:search_result)).to match_array(@item)
+        end
+      end
+
+      # キーワード：@item.category.grandparent.nameにヒットする場合
+      context "of @item.category.grandparent.name" do
+
+        # @search_resultという変数が正しく定義されているか
+        it "assigns the requested item to @search_result" do
+          get :search, params: { q: { name_or_brand_or_category_name_or_category_parent_name_or_category_grandparent_name_cont: "top" } }
+          expect(assigns(:search_result)).to match_array(@item)
+        end
+      end
+
+      # キーワード：ヒットしない場合
+      context "not match" do
+
+        # @search_resultという変数が正しく定義されているか
+        it "assigns the requested item to @all_items" do
+          get :search, params: { q: { name_or_brand_or_category_name_or_category_parent_name_or_category_grandparent_name_cont: "none" } }
+          expect(assigns(:all_items)).to match_array(@item)
+        end
+      end
+
+      # 該当するビューが描画されているか
+      it "renders the :search template" do
+        get :search, params: { q: { name_or_brand_or_category_name_or_category_parent_name_or_category_grandparent_name_cont: "アイテム" } }
+        expect(response).to render_template :search
+      end
+    end
+
+    context "without keywords" do
+      before do
+        get :search, params: {q: ""}
+      end
+
+      # @search_resultという変数が正しく定義されているか
+      it "assigns the requested item to @search_result" do
+        expect(assigns(:search_result)).to match_array(@item)
+      end
+
+      # 該当するビューが描画されているか
+      it "renders the :search template" do
+        expect(response).to render_template :search
+      end
+    end
+  end
 end
