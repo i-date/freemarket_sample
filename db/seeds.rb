@@ -1,10 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
 require 'csv'
 
 # # ユーザー
@@ -12,7 +5,7 @@ require 'csv'
 
 # # カテゴリー
 # CSV.foreach('db/category.csv') do |record|
-#   Category.create(name: record[0], parent_id: record[1])
+#   Category.create(name: record[0], parent_id: record[1], grandparent_id: record[2])
 # end
 
 # # ブランド
@@ -30,8 +23,8 @@ require 'csv'
 #   Size.create(name: record[0])
 # end
 
-# 商品ステータス
-Status.create([{ name: '出品中'}, { name: '取引中' }, { name: '売却済み' }, { name: '出品停止' }])
+# # 商品ステータス
+# Status.create([{ name: '出品中'}, { name: '取引中' }, { name: '売却済み' }, { name: '出品停止' }])
 
 # # 商品
 # CSV.foreach('db/item.csv') do |record|

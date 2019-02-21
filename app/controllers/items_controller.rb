@@ -61,6 +61,11 @@ class ItemsController < ApplicationController
     redirect_to root_path
   end
 
+  def search
+    @search_result = @query.result.sort_update_desc.includes(:images)
+    @all_items = Item.sort_update_desc.includes(:images) if @search_result.blank?
+  end
+
   private
 
   def item_params
