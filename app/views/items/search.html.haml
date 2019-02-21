@@ -1,0 +1,24 @@
+-# ページタイトル
+- content_for(:title) { "#{@query_keyword}商品一覧 - メルカリ サンプル" }
+
+-# パンくずリスト
+- breadcrumb :search, @query_keyword
+
+-# コンテンツ
+.search
+  .search__detail
+    .search__detail__container
+      %h3.search__detail__container__head 詳細検索
+      -# TODO:詳細検索の内容実装
+  .search__result
+    - if @search_result.present? && @query_keyword.present?
+      %h2.search__result__head= "検索結果 1-#{@search_result.length} 件"
+    - else
+      %h2.search__result__head 検索結果 0件
+      %p.search__result__description 該当する商品が見つかりません。商品は毎日増えていますので、これからの出品に期待してください。
+      %h2.search__result__new 新着商品
+    .search__result__container
+      - if @search_result.present?
+        = render partial: 'partial/card', collection: @search_result, as: 'item'
+      - else
+        = render partial: 'partial/card', collection: @all_items, as: 'item'
