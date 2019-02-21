@@ -411,12 +411,12 @@ describe ItemsController, type: :controller do
         end
       end
 
-      # キーワード：nameにヒットする場合
-      context "of name" do
+      # キーワード：brandにヒットする場合
+      context "of brand" do
 
         # @search_resultという変数が正しく定義されているか
         it "assigns the requested item to @search_result" do
-          get :search, params: { q: { name_or_brand_or_category_name_or_category_parent_name_or_category_grandparent_name_cont: "アイテム" } }
+          get :search, params: { q: { name_or_brand_or_category_name_or_category_parent_name_or_category_grandparent_name_cont: "メルカリ" } }
           expect(assigns(:search_result)).to match_array(@item)
         end
       end
