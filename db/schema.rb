@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_13_020920) do
+ActiveRecord::Schema.define(version: 2019_02_21_035014) do
 
   create_table "brand_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -31,6 +31,8 @@ ActiveRecord::Schema.define(version: 2019_02_13_020920) do
     t.bigint "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "grandparent_id"
+    t.index ["grandparent_id"], name: "index_categories_on_grandparent_id"
     t.index ["parent_id"], name: "index_categories_on_parent_id"
   end
 
