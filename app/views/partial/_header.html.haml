@@ -3,7 +3,7 @@
     = link_to root_path, class: 'header__container__top__logo' do
       = image_tag 'common/logo.svg', alt: 'logo', class: 'header__container__top__logo__image', height: '36', width: '134'
     = search_form_for @query, url: search_items_path, class: 'header__container__top__search' do |f|
-      = f.search_field @search_columns_sym, placeholder: 'キーワードから探す', class: 'header__container__top__search__field'
+      = f.search_field @keyword_sym, placeholder: 'キーワードから探す', class: 'header__container__top__search__field'
       .header__container__top__search__action
         = f.submit
       %i.fas.fa-search
