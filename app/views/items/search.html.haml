@@ -6,12 +6,107 @@
 
 -# コンテンツ
 .search
-  .search__detail
+  = search_form_for @query, url: search_items_path, class: 'search__detail' do |f|
+    -# ソート
+    .search__detail__container__group__select
+      = f.select @sort_sym, @sort_list, { include_blank: '並び替え' }, class: 'search-sorts'
+
     .search__detail__container
       %h3.search__detail__container__head 詳細検索
-      -# TODO:詳細検索の内容実装
+      -# キーワード検索
+      .search__detail__container__group
+        = f.label @keyword_sym, class: 'search__detail__container__group__head' do
+          %i.fas.fa-plus
+          %span キーワードを追加する
+        = f.search_field @keyword_sym, placeholder: '例）値下げ', class: 'search__detail__container__group__field'
+
+      -# カテゴリー検索
+      .search__detail__container__group
+        = f.label @category_sym, class: 'search__detail__container__group__head' do
+          %i.fas.fa-list-ul
+          %span カテゴリーを選択する
+        -# トップレベル
+        .search__detail__container__group__select.category-top
+          = f.collection_select @category_grandparent_sym, @categories, :id, :name, { include_blank: 'すべて' }
+        -# ミドルレベル
+        - @categories.each do |parent|
+          .search__detail__container__group__select.category-middle
+            = f.collection_select @category_parent_sym, parent.children, :id, :name, { include_blank: 'すべて' }, disabled: true, data: { val: "#{parent.id}" }
+          -# ボトムレベル
+          - parent.children.each do |child|
+            .search__detail__container__group__check.category-bottom{ data: {val: "#{child.id}"} }
+              = f.collection_check_boxes @category_sym, child.children, :id, :name, { include_hidden: false } do |b|
+                .search__detail__container__group__check__box
+                  = b.check_box
+                  = b.label
+
+      -# ブランド検索
+      .search__detail__container__group
+        = f.label @brand_sym, class: 'search__detail__container__group__head' do
+          %i.fas.fa-tag
+          %span ブランド名から探す
+        = f.search_field @brand_sym, placeholder: '例）シャネル', class: 'search__detail__container__group__field'
+
+      -# サイズ検索
+      .search__detail__container__group
+        = f.label @size_sym, class: 'search__detail__container__group__head' do
+          %i.fas.fa-expand
+          %span サイズを指定する
+        .search__detail__container__group__select
+          = f.collection_select @size_sym, @size_list, :id, :name, { include_blank: 'すべて' }
+
+      -# 価格検索
+      .search__detail__container__group
+        = f.label @keyword_sym, class: 'search__detail__container__group__head' do
+          %i.fas.fa-coins
+          %span 価格
+        .search__detail__container__group__select
+          = f.select :price, @price_list, { include_blank: '選択して下さい' }
+        .search__detail__container__group__price
+          = f.search_field @price_gteq_sym, placeholder: '¥ Min', class: 'search__detail__container__group__price__minifield'
+          %span ~
+          = f.search_field @price_lteq_sym, placeholder: '¥ Max', class: 'search__detail__container__group__price__minifield'
+
+
+      -# 商品状態検索
+      .search__detail__container__group
+        = f.label @condition_sym, class: 'search__detail__container__group__head' do
+          %i.fas.fa-star
+          %span 商品の状態
+        .search__detail__container__group__check
+          - @condition_list.each do |key, value|
+            .search__detail__container__group__check__box
+              = f.check_box @condition_sym, {id: "q_condition_check_#{key.to_s}", name: 'q[condition_eq_any][]'}, key.to_s, nil
+              = f.label "condition_check_#{key.to_s}", value
+
+      -# 配送料負担検索
+      .search__detail__container__group
+        = f.label @fee_sym, class: 'search__detail__container__group__head' do
+          %i.fas.fa-truck
+          %span 配送料の負担
+        .search__detail__container__group__check
+          - @fee_list.each do |key, value|
+            .search__detail__container__group__check__box
+              = f.check_box @fee_sym, {id: "q_fee_check_#{key.to_s}", name: 'q[shipping_fee_eq_any][]'}, key.to_s, nil
+              = f.label "fee_check_#{key.to_s}", value
+
+      -# 販売状況検索
+      .search__detail__container__group
+        = f.label @status_sym, class: 'search__detail__container__group__head' do
+          %i.fas.fa-shopping-cart
+          %span 販売状況
+        .search__detail__container__group__check
+          - @status_list.each do |key, value|
+            .search__detail__container__group__check__box
+              = f.check_box @status_sym, {id: "q_status_check_#{key.to_s}", name: 'q[status_id_eq_any][]'}, key.to_s, nil
+              = f.label "status_check_#{key.to_s}", value
+
+      .search__detail__container__button
+        = f.button 'クリア', type: :reset
+        = f.submit '完了'
+
   .search__result
-    - if @search_result.present? && @query_keyword.present?
+    - if @search_result.present?
       %h2.search__result__head= "検索結果 1-#{@search_result.length} 件"
     - else
       %h2.search__result__head 検索結果 0件
@@ -21,4 +116,4 @@
       - if @search_result.present?
         = render partial: 'partial/card', collection: @search_result, as: 'item'
       - else
-        = render partial: 'partial/card', collection: @all_items, as: 'item'
+        = render partial: 'partial/card', collection: @new_items, as: 'item'

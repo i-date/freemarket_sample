@@ -66,4 +66,25 @@ class Item < ApplicationRecord
   scope :get_previous_item, -> (item) { where("id < ?", item.id).order("id DESC") }
   scope :get_user_items, -> (item) { where(user_id: item.user_id).sort_update_desc }
   scope :get_category_items, -> (item) { where(category_id: item.category_id).sort_update_desc }
+
+  # 検索用
+  def self.sort_select_list
+    [ ['価格の低い順', 'price ASC'], ['価格の高い順', 'price DESC'], ['出品の古い順', 'created_at ASC'], ['出品の新しい順', 'created_at DESC'], ['更新の古い順', 'updated_at ASC'], ['更新の新しい順（デフォルト）', 'updated_at DESC'] ]
+  end
+
+  def self.price_select_list
+    ['300 ~ 1000', '1000 ~ 5000', '5000 ~ 10000', '10000 ~ 30000', '10000 ~ 30000', '50000 ~ ']
+  end
+
+  def self.condition_check_list
+    { "0": 'すべて', "1": '新品、未使用', "2": '未使用に近い', "3": '目立った傷や汚れなし', "4": 'やや傷や汚れあり', "5": '傷や汚れあり', "6": '全体的に状態が悪い' }
+  end
+
+  def self.fee_check_list
+    { "0": 'すべて', "1": '着払い(購入者負担)', "2": '送料込み(出品者負担)' }
+  end
+
+  def self.status_check_list
+    { "0": 'すべて', "1": '販売中', "2,3": '売り切れ' }
+  end
 end
