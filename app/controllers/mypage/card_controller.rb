@@ -1,5 +1,5 @@
 class Mypage::CardController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :new]
+  before_action :authenticate_user!, only: [:index, :new, :create, :destroy]
 
   def index
     @credit_card = Credit.find_by(user_id: current_user.id)
