@@ -1,0 +1,34 @@
+-# ページタイトル
+- content_for(:title) { '支払い方法 - メルカリ サンプル' }
+
+-# パンくずリスト
+- breadcrumb :mypage_credit
+
+-# コンテンツ
+.mypage
+  -# ナビゲーション
+  = render partial: "mypage/mypage-nav"
+  -# メインコンテンツ
+  .mypage__content
+    .credit
+      %h2.credit__head 支払い方法
+      .credit__content
+        %h3.credit__content__head クレジットカード一覧
+        - if @credit_card.present?
+          = form_for :credit, url: mypage_destroy_credit_card_path, method: :delete, html: { class: 'credit__content__card' } do |f|
+            .credit__content__card__group
+              -# TODO:クレジットカード登録機能実装後、各値の取得を修正
+              = image_tag "common/visa.svg", alt: "visa" if @credit_card[:authorization_code].present?
+              .credit__content__card__group__info ************3456
+              .credit__content__card__group__info= "#{@credit_card[:month]} / #{@credit_card[:year]}"
+              = f.submit "削除する", class: 'credit__content__card__group__submit'
+
+        - else
+          .credit__content__card
+            = link_to mypage_new_credit_card_path, class: 'credit__content__card__link' do
+              %i.far.fa-credit-card
+              %span クレジットカードを追加する
+        = link_to '#', class: 'credit__content__another-link' do
+          %span 支払い方法について
+          %i.fas.fa-chevron-right
+
