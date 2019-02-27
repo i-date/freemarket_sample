@@ -14,6 +14,6 @@ module Common
   end
 
   def set_months
-    return [*(1..12)].map { |num| '%02d' % num }
+    ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
   end
 end
