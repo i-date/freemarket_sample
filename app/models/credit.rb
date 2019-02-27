@@ -20,4 +20,14 @@ class Credit < ApplicationRecord
     format: { with: /#{year_regex}/, message: "無効な選択です" }
   validates :user_id,
     presence: true
+
+  def self.get_years
+    min_year = Time.new.year.to_s[2,2].to_i
+    max_year = min_year + 10
+    return years = [*(min_year..max_year)]
+  end
+
+  def self.get_months
+    ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+  end
 end
