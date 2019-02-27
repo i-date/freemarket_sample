@@ -14,10 +14,11 @@ Rails.application.routes.draw do
     get 'mypage', to: 'mypage/mypage#index', as: :mypage_top
     get 'logout', to: 'mypage/logout#index', as: :mypage_logout
     namespace :mypage do
-      get   'profile',        to: 'profile#edit',          as: :profile
-      patch 'profile',        to: 'profile#update',        as: :profile_update
-      get   'identification', to: 'identification#edit',   as: :identification
-      patch 'identification', to: 'identification#update', as: :identification_update
+      get    'profile',        to: 'profile#edit',          as: :profile
+      patch  'profile',        to: 'profile#update',        as: :profile_update
+      get    'identification', to: 'identification#edit',   as: :identification
+      patch  'identification', to: 'identification#update', as: :identification_update
+      resources :card, only: [:index, :new, :create, :destroy]
     end
 
     # 商品関連ページ

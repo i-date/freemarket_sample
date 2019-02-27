@@ -28,6 +28,18 @@ crumb :mypage_identification do
   parent :mypage
 end
 
+# 支払方法の確認
+crumb :mypage_credit do
+  link '支払い方法', mypage_card_index_path
+  parent :mypage
+end
+
+# クレジットカード情報の登録
+crumb :mypage_new_credit do
+  link 'クレジットカード情報入力', new_mypage_card_path
+  parent :mypage_credit
+end
+
 # -------------------- 商品関係 --------------------
 # 商品詳細
 crumb :item do |item|
