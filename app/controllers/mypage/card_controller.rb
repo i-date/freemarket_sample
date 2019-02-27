@@ -1,5 +1,4 @@
 class Mypage::CardController < ApplicationController
-  include Common
   before_action :authenticate_user!, only: [:index, :new]
 
   def index
@@ -9,8 +8,8 @@ class Mypage::CardController < ApplicationController
 
   def new
     @credit_card = Credit.new
-    @months = set_months
-    @years = set_years
+    @months = Credit.get_months
+    @years = Credit.get_years
   end
 
   def create
