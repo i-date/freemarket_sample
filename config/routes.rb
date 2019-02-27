@@ -27,6 +27,11 @@ Rails.application.routes.draw do
     get  'search', to: 'items#search', as: :search_items
     resources :items, only: [:show, :edit, :update, :destroy]
 
+    # トランザクション
+    namespace :transaction do
+      resources :buy, only: [:show]
+    end
+
     # TODO:仮のURIを修正
     devise_scope :user do
       # session
