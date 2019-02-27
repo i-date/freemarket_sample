@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_21_035014) do
+ActiveRecord::Schema.define(version: 2019_02_26_074248) do
 
   create_table "brand_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -34,6 +34,17 @@ ActiveRecord::Schema.define(version: 2019_02_21_035014) do
     t.bigint "grandparent_id"
     t.index ["grandparent_id"], name: "index_categories_on_grandparent_id"
     t.index ["parent_id"], name: "index_categories_on_parent_id"
+  end
+
+  create_table "credits", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "authorization_code", null: false
+    t.string "security_code", null: false
+    t.string "month", null: false
+    t.string "year", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_credits_on_user_id"
   end
 
   create_table "images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -125,6 +136,7 @@ ActiveRecord::Schema.define(version: 2019_02_21_035014) do
   end
 
   add_foreign_key "brands", "brand_groups"
+  add_foreign_key "credits", "users"
   add_foreign_key "images", "items"
   add_foreign_key "items", "categories"
   add_foreign_key "items", "sizes"
