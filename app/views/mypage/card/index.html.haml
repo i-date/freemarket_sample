@@ -15,7 +15,7 @@
       .credit__content
         %h3.credit__content__head クレジットカード一覧
         - if @credit_card.present?
-          = form_for :credit, url: mypage_destroy_credit_card_path, method: :delete, html: { class: 'credit__content__card' } do |f|
+          = form_for @credit_card, url: mypage_card_path(@credit_card), method: :delete, html: { class: 'credit__content__card' } do |f|
             .credit__content__card__group
               -# TODO:クレジットカード登録機能実装後、各値の取得を修正
               = image_tag "common/visa.svg", alt: "visa" if @credit_card[:authorization_code].present?
@@ -25,7 +25,7 @@
 
         - else
           .credit__content__card
-            = link_to mypage_new_credit_card_path, class: 'credit__content__card__link' do
+            = link_to new_mypage_card_path, class: 'credit__content__card__link' do
               %i.far.fa-credit-card
               %span クレジットカードを追加する
         = link_to '#', class: 'credit__content__another-link' do

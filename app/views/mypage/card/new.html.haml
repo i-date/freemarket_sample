@@ -13,7 +13,7 @@
     .credit
       %h2.credit__head クレジットカード情報入力
       .credit__content
-        = form_for @credit_card, url: mypage_create_credit_card_path, method: :post, html: { class: 'credit__content__form' } do |f|
+        = form_for @credit_card, url: mypage_card_index_path, method: :post, html: { class: 'credit__content__form' } do |f|
           -# カード番号
           .credit__content__form__group
             %span.credit__content__form__group__label カード番号

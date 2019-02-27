@@ -1,10 +1,10 @@
-class Mypage::CreditsController < ApplicationController
+class Mypage::CardController < ApplicationController
   include Common
   before_action :authenticate_user!, only: [:index, :new]
 
   def index
     # TODO:クレジットカード登録機能実装後、current_user.creditsに変更
-    @credit_card = { authorization_code: '1234567890123456', security_code: '999', month: '01', year: '20' }
+    @credit_card = {}
   end
 
   def new
