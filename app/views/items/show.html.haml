@@ -102,9 +102,9 @@
     .seller
       = link_to '商品の編集', edit_item_path(@item), class: 'seller__link'
       %p or
-      = link_to '出品を再開する', '#', method: :put, class: 'seller__link start-stop' if @item.status_id == 4
-      = link_to '商品を一旦停止する', '#', method: :put, class: 'seller__link start-stop' if @item.status_id != 4
-      = link_to 'この商品を削除する', item_path(@item), method: :delete, data: { confirm: "本当に削除しますか？" }, class: 'seller__link'
+      = link_to '出品を再開する', item_path(@item, status_id: 1, status_flag: true), method: :patch, class: 'seller__link' if @item.status_id == 4
+      = link_to '商品を一旦停止する', item_path(@item, status_id: 4, status_flag: true), method: :patch, class: 'seller__link--gray' if @item.status_id == 1
+      = link_to 'この商品を削除する', item_path(@item), method: :delete, data: { confirm: "本当に削除しますか？" }, class: 'seller__link--gray'
 
   -# コメント
   .comment
