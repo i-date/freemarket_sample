@@ -12,13 +12,13 @@
       -# 商品画像
       .detail__box__item
         - if @images.present?
-          .detail__box__item__image--large
+          .detail__box__item__image--large{ class: "#{'card__photo-sold' if @item.status_id == 2 || @item.status_id == 3} #{'card__photo-stop' if @item.status_id == 4}" }
             = image_tag @images.first.name.url, alt: '商品画像'
           .detail__box__item__image--small
             - @images.each do |image|
               = image_tag image.name.url, alt: '商品画像'
         - else
-          .detail__box__item__image--large
+          .detail__box__item__image--large{ class: "#{'card__photo-sold' if @item.status_id == 2 || @item.status_id == 3} #{'card__photo-stop' if @item.status_id == 4}" }
             = image_tag 'common/no_image.png', alt: '画像がありません'
           .detail__box__item__image--small
             = image_tag 'common/no_image.png', alt: '画像がありません'
@@ -72,10 +72,15 @@
       %span= "¥ #{number_with_delimiter(@item.price)}"
       %span （税込）
       %span= (@item.shipping_fee == "including_postage") ? "送料込み" : "着払い"
-    - if user_signed_in?
-      = link_to '購入画面に進む', transaction_buy_path(@item), class: 'detail__purchase-link' unless current_user.id == @item.user_id
+    - if @item.status_id == 2 || @item.status_id == 3
+      .detail__purchase-none 売り切れました
+    - elsif @item.status_id == 4
+      .detail__purchase-none 出品停止中
     - else
-      = link_to '購入画面に進む', new_user_session_path, class: 'detail__purchase-link'
+      - if user_signed_in?
+        = link_to '購入画面に進む', transaction_buy_path(@item), class: 'detail__purchase-link' unless current_user.id == @item.user_id
+      - else
+        = link_to '購入画面に進む', new_user_session_path, class: 'detail__purchase-link'
     -# 商品説明
     .detail__description= @item.description
     -# その他
@@ -98,7 +103,7 @@
       = link_to '商品の編集', edit_item_path(@item), class: 'seller__link'
       %p or
       = link_to '出品を再開する', '#', method: :put, class: 'seller__link start-stop' if @item.status_id == 4
-      = link_to '商品を一旦停止する', '#', method: :put, class: 'seller__link start-stop' unless @item.status_id == 4
+      = link_to '商品を一旦停止する', '#', method: :put, class: 'seller__link start-stop' if @item.status_id != 4
       = link_to 'この商品を削除する', item_path(@item), method: :delete, data: { confirm: "本当に削除しますか？" }, class: 'seller__link'
 
   -# コメント
