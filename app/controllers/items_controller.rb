@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+  include Common
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   layout 'devise', only: [:new, :create, :edit, :update]
@@ -37,7 +38,12 @@ class ItemsController < ApplicationController
   end
 
   def update
-    redirect_to root_path and return unless current_user.id == @item.user_id
+    redirect_to root_path and return if current_user.id != @item.user_id
+    # 出品再開停止
+    @item.update(status_id: start_or_stop_displaying_params[:status_id])
+    redirect_to item_path(@item) and return if to_boolean(start_or_stop_displaying_params[:status_flag])
+
+    # 商品情報更新
     if @item.update(to_int_category_id_and_size_id)
       @item.images.each do |image|
         image.destroy
@@ -114,6 +120,10 @@ class ItemsController < ApplicationController
       shipping_fee_eq_any: [],
       status_id_eq_any: [],
     ) if params[:q].present?
+  end
+
+  def start_or_stop_displaying_params
+    params.permit(:status_id, :status_flag)
   end
 
   def set_item
