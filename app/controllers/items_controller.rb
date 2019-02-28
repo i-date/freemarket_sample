@@ -5,7 +5,7 @@ class ItemsController < ApplicationController
   layout 'devise', only: [:new, :create, :edit, :update]
 
   def index
-    @items = Item.sort_update_desc.limit(4)
+    @items = Item.sort_update_desc.limit(4).includes(:images)
     @none_breadcrumbs_flag = true;
   end
 
@@ -28,8 +28,8 @@ class ItemsController < ApplicationController
   def show
     @next_item = Item.get_next_item(@item).first
     @prev_item = Item.get_previous_item(@item).first
-    @user_items = Item.get_user_items(@item).limit(3)
-    @category_items = Item.get_category_items(@item).limit(3)
+    @user_items = Item.get_user_items(@item).limit(3).includes(:images)
+    @category_items = Item.get_category_items(@item).limit(3).includes(:images)
     @images = @item.images
   end
 
