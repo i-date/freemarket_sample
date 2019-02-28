@@ -13,7 +13,7 @@ class Credit < ApplicationRecord
   end
 
   def get_type
-    numbers = self.authorization_code
+    numbers = authorization_code
     return 'visa' if numbers.match(/\A4\d{12}(?:\d{3})?\z/)
     return 'master-card' if numbers.match(/\A5[1-5]\d{14}\z/)
     return 'jcb' if numbers.match(/\A(?:2131|1800|35\d{3})\d{11}\z/)
@@ -24,7 +24,7 @@ class Credit < ApplicationRecord
   end
 
   def hide_numbers
-    hide_length = self.authorization_code.length - 4;
+    hide_length = authorization_code.length - 4;
     hide_number = '*' * hide_length + self.authorization_code.sub(/\A\d{#{hide_length}}/, '')
     return hide_number
   end
