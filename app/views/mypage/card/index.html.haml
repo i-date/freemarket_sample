@@ -17,10 +17,9 @@
         - if @credit_card.present?
           = form_for @credit_card, url: mypage_card_path(@credit_card), method: :delete, html: { class: 'credit__content__card' } do |f|
             .credit__content__card__group
-              -# TODO:クレジットカード登録機能実装後、各値の取得を修正
-              = image_tag "common/visa.svg", alt: "visa" if @credit_card[:authorization_code].present?
-              .credit__content__card__group__info ************3456
-              .credit__content__card__group__info= "#{@credit_card[:month]} / #{@credit_card[:year]}"
+              = image_tag "common/#{@credit_card.get_type}.svg", alt: "#{@credit_card.get_type}" if @credit_card.get_type.present?
+              .credit__content__card__group__info= @credit_card.hide_numbers
+              .credit__content__card__group__info= "#{@credit_card.month} / #{@credit_card.year}"
               = f.submit "削除する", class: 'credit__content__card__group__submit'
 
         - else
