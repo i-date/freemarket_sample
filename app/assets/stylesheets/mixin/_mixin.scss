@@ -84,6 +84,33 @@
   }
 }
 
+@mixin stop {
+  &:after {
+    position: absolute;
+    top: 26px;
+    left: 0;
+    display: block;
+    content: '\51FA\54C1\505C\6B62\4E2D';
+    color: $white;
+    font-size: 16px;
+    font-weight: bold;
+    transform: rotate(-45deg);
+  }
+
+  &:before {
+    display: block;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border: 50px solid #888;
+    border-right: 50px solid transparent;
+    border-bottom: 50px solid transparent;
+  }
+}
+
 @mixin list-item {
   &__item {
     width: 100%;

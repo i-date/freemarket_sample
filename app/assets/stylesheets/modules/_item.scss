@@ -511,6 +511,17 @@
     }
   }
 
+  &__purchase-none {
+    width: 100%;
+    height: 60px;
+    margin-top: 16px;
+    background-color: #888;
+    color: $white;
+    font-size: 24px;
+    font-weight: bold;
+    @include flex-center;
+  }
+
   &__purchase-link {
     width: 100%;
     height: 60px;
