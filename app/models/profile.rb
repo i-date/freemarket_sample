@@ -51,14 +51,14 @@ class Profile < ApplicationRecord
     presence: true
 
   def set_hyphen
-    self.zipcode.to_s.insert(3, '-')
+    zipcode.to_s.insert(3, '-')
   end
 
   def set_address
-    self.prefecture_i18n + "\s" + self.city + "\s" + self.block + "\s" + self.building
+    prefecture_i18n + "\s" + city + "\s" + block + "\s" + building
   end
 
   def set_fullname
-    self.last_name + "\s" + self.first_name
+    last_name + "\s" + first_name
   end
 end

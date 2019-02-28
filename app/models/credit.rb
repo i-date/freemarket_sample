@@ -25,7 +25,7 @@ class Credit < ApplicationRecord
 
   def hide_numbers
     hide_length = authorization_code.length - 4;
-    hide_number = '*' * hide_length + self.authorization_code.sub(/\A\d{#{hide_length}}/, '')
+    hide_number = '*' * hide_length + authorization_code.sub(/\A\d{#{hide_length}}/, '')
     return hide_number
   end
 
