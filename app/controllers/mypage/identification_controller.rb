@@ -1,15 +1,17 @@
 class Mypage::IdentificationController < ApplicationController
-  include Common
-  before_action :move_to_root
+  before_action :authenticate_user!
 
   def edit
     @profile = current_user.profile
   end
 
   def update
-    # TODO: update処理のコード追加
-    @profile = Profile.new(profile_params)
-    render :edit
+    @profile = current_user.profile
+    if @profile.update(profile_params)
+      redirect_to mypage_top_path
+    else
+      render :edit
+    end
   end
 
   private

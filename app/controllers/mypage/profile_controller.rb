@@ -1,6 +1,5 @@
 class Mypage::ProfileController < ApplicationController
-  include Common
-  before_action :move_to_root
+  before_action :authenticate_user!
 
   def edit
     @profile = current_user.profile
@@ -8,10 +7,11 @@ class Mypage::ProfileController < ApplicationController
 
   def update
     @profile = current_user.profile
-    @profile.nickname = profile_params[:nickname]
-    @profile.body = profile_params[:body]
-    # TODO: レコードの更新用コードを記述
-    render :edit
+    if @profile.update(profile_params)
+      redirect_to mypage_top_path
+    else
+      render :edit
+    end
   end
 
   private
