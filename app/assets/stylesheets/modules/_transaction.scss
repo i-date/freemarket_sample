@@ -1,0 +1,173 @@
+.payment {
+  width: 700px;
+  margin: 0 auto;
+  background-color: $white;
+
+  &__head {
+    width: 100%;
+    padding: 32px 0;
+    color: $black;
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  &__group {
+    width: 100%;
+    padding: 40px;
+    border-top: 1px solid $gray-back;
+
+    &__content {
+      width: 320px;
+      margin: 0 auto;
+
+      &__item-image {
+        display: block;
+        max-width: 148px;
+        max-height: 148px;
+        object-fit: contain;
+        margin: 0 auto;
+        box-shadow: 0 0 1px rgba(0, 0, 0, .2)
+      }
+
+      &__item-head {
+        margin-top: 8px;
+        color: $black;
+        font-weight: bold;
+        text-align: center;
+      }
+
+      &__item {
+        width: 100%;
+        margin-top: 8px;
+        text-align: center;
+
+        &__space {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+          align-items: center;
+          margin: 0;
+          padding: 16px 0;
+        }
+
+        &__price {
+          color: $black;
+          font-size: 28px;
+          font-weight: bold;
+        }
+
+        &__fee {
+          margin-left: 16px;
+          color: $black;
+          font-size: 14px;
+        }
+
+        &__purchase {
+          width: 100%;
+          height: 50px;
+          background-color: $red;
+          color: $white;
+          font-size: 14px;
+          font-weight: bold;
+          @include flex-center;
+        }
+
+        &__registration {
+          width: 48%;
+          height: 50px;
+          background-color: $red;
+          color: $white;
+          font-size: 14px;
+          @include flex-center;
+
+          &--already {
+            width: 48%;
+            height: 50px;
+            background-color: #ccc;
+            color: $black;
+            font-size: 14px;
+            @include flex-center;
+          }
+        }
+
+        &__store-image {
+          width: 100%;
+          padding: 8px 0;
+          @include flex-center;
+
+          img {
+            width: 148px;
+
+            &:first-of-type {
+              margin-right: 8px;
+            }
+          }
+        }
+      }
+
+      &__app {
+        width: 100%;
+        margin-top: 16px;
+        color: $black;
+        font-size: 14px;
+        text-align: center;
+      }
+
+      &__caution {
+        color: $red;
+        font-size: 14px;
+        text-align: center;
+      }
+
+      &__button--none {
+        width: 100%;
+        height: 50px;
+        margin-top: 16px;
+        background-color: #ccc;
+        color: $black;
+        font-size: 14px;
+        @include flex-center;
+      }
+
+      &__head {
+        margin-bottom: 8px;
+        color: $black;
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 1;
+      }
+
+      &__info {
+        color: $black;
+        font-size: 14px;
+        line-height: 1.4;
+      }
+
+      &__image {
+        max-width: 49px;
+        height: 20px;
+        object-fit: contain;
+      }
+
+      &__another-link {
+        display: block;
+        color: $light-blue;
+        font-size: 0;
+        text-align: right;
+        @include hover;
+
+        i {
+          font-size: 16px;
+          line-height: 1;
+        }
+
+        span {
+          margin-right: 8px;
+          font-size: 14px;
+          line-height: 1;
+        }
+      }
+    }
+  }
+}

@@ -12,6 +12,23 @@ class Credit < ApplicationRecord
     ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
   end
 
+  def get_type
+    numbers = authorization_code
+    return 'visa' if numbers.match(/\A4\d{12}(?:\d{3})?\z/)
+    return 'master-card' if numbers.match(/\A5[1-5]\d{14}\z/)
+    return 'jcb' if numbers.match(/\A(?:2131|1800|35\d{3})\d{11}\z/)
+    return 'american_express' if numbers.match(/\A3[47]\d{13}\z/)
+    return 'dinersclub' if numbers.match(/\A3(?:0[0-5]|[68]\d)\d{11}\z/)
+    return 'discover' if numbers.match(/\A6011\d{12}\z/)
+    return ''
+  end
+
+  def hide_numbers
+    hide_length = authorization_code.length - 4;
+    hide_number = '*' * hide_length + authorization_code.sub(/\A\d{#{hide_length}}/, '')
+    return hide_number
+  end
+
   validates :authorization_code,
     presence: true,
     format: { with: /\A\d{14,16}\z/, allow_blank: true, message: "この番号は登録できません" }
