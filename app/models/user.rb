@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :credits
   has_many :items
   has_many :sns_credentials
+  has_many :trading_partners
   has_one :profile
 
   validates :nickname,
