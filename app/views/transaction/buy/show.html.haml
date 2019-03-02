@@ -1,5 +1,9 @@
 -# ページタイトル
-- content_for(:title) { '出品 - メルカリ サンプル' }
+- content_for(:title) { '購入を確定 - メルカリ サンプル' }
+
+-# 購入失敗時のアラート
+- if flash[:alert].present?
+  = javascript_tag "alert('#{flash[:alert]}')"
 
 -# コンテンツ
 .payment
@@ -18,8 +22,17 @@
         %span.payment__group__content__item__price 支払い金額
         %span.payment__group__content__item__price= "¥ #{number_with_delimiter(@item.price)}"
       - if @credit_card.present? && @profile.prefecture.present? && @profile.city.present? && @profile.block.present? && @profile.first_name.present? && @profile.last_name.present?
-        -# TODO:pay.jpのフォームに修正
-        = link_to '購入する', '#', class: 'payment__group__content__item__purchase'
+        - if @credit_card.payjp_token.present?
+          = link_to '購入する', transaction_buy_index_path(id: @item.id), method: :post, class: 'payment__group__content__item__purchase'
+        - else
+          = form_tag('/jp/transaction/buy', method: :post, class: 'payjp-form') do
+            = hidden_field_tag :id, @item.id
+            = hidden_field_tag 'pay_key', PAYJP_TEST_PUBLIC_KEY, class: 'pay_key'
+            = hidden_field_tag 'number', @credit_card.authorization_code, class: 'number'
+            = hidden_field_tag 'cvc', @credit_card.security_code, class: 'cvc'
+            = hidden_field_tag 'exp_month', @credit_card.month, class: 'exp_month'
+            = hidden_field_tag 'exp_year', @credit_card.set_year, class: 'exp_year'
+            = button_tag '購入する', class: 'payment__group__content__item__purchase'
       - else
         .payment__group__content__caution
           - if @profile.prefecture.blank? || @profile.city.blank? || @profile.block.blank? || @profile.first_name.blank? || @profile.last_name.blank?
@@ -64,3 +77,40 @@
         = link_to mypage_card_index_path, class: 'payment__group__content__another-link' do
           %span 変更する
           %i.fas.fa-chevron-right
+
+-# Pay.jpカスタムフォーム操作
+-# 外部jsに切り出す場合、他ページでPayjp部分でエラー生じるため、このviewファイル内に記述
+- content_for(:payjp) do
+  %script{ type: 'text/javascript', src: 'https://js.pay.jp' }
+  :javascript
+    var payjp_form = $(".payjp-form");
+    var payjp_key = payjp_form.find('input[name="pay_key"]').val();
+    Payjp.setPublicKey(payjp_key);
+
+    payjp_form.submit(function(e) {
+      e.preventDefault();
+      payjp_form.find("input[type=submit]").prop("disabled", true);
+
+      var card = {
+        number: payjp_form.find('.number').val(),
+        cvc: payjp_form.find('.cvc').val(),
+        exp_month: payjp_form.find('.exp_month').val(),
+        exp_year: payjp_form.find('.exp_year').val()
+      };
+
+      Payjp.createToken(card, function (s, response) {
+        if (response.error) {
+          alert("error")
+          payjp_form.find('button').prop('disabled', false);
+        } else {
+          $('.number').removeAttr('name');
+          $('.cvc').removeAttr('name');
+          $('.exp_month').removeAttr('name');
+          $('.exp_year').removeAttr('name');
+
+          var token = response.id;
+          payjp_form.append($('<input type="hidden" name="payjp_token" class="payjp-token" />').val(token));
+          payjp_form.get(0).submit();
+        }
+      });
+    });
