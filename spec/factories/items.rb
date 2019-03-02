@@ -14,6 +14,10 @@ FactoryBot.define do
     category_id          { 1 }
     user_id              { 1 }
     size_id              { 1 }
+
+    after(:create) do |item|
+      create(:image, item_id: item.id)
+    end
   end
 
 end
