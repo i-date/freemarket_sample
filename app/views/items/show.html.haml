@@ -78,7 +78,7 @@
       .detail__purchase-none 出品停止中
     - else
       - if user_signed_in?
-        = link_to '購入画面に進む', transaction_buy_path(@item), class: 'detail__purchase-link' unless current_user.id == @item.user_id
+        = link_to '購入画面に進む', transaction_buy_path(@item), data: { turbolinks: false }, class: 'detail__purchase-link' unless current_user.id == @item.user_id
       - else
         = link_to '購入画面に進む', new_user_session_path, class: 'detail__purchase-link'
     -# 商品説明
