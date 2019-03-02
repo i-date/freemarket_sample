@@ -29,6 +29,10 @@ class Credit < ApplicationRecord
     return hide_number
   end
 
+  def set_year
+    '20' + year
+  end
+
   validates :authorization_code,
     presence: true,
     format: { with: /\A\d{14,16}\z/, allow_blank: true, message: "この番号は登録できません" }
