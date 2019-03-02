@@ -79,9 +79,10 @@
           %i.fas.fa-chevron-right
 
 -# Pay.jpカスタムフォーム操作
--# 外部jsに切り出す場合、他ページでPayjp部分でエラー生じるため、このviewファイル内に記述
 - content_for(:payjp) do
+  -# payjp.jsの読み込み
   %script{ type: 'text/javascript', src: 'https://js.pay.jp' }
+  -# FIXME:外部jsに切り出す場合、他ページでPayjp部分でエラー生じる（原因：このページでしかpayjp.jsを読み込んでない）ため、このviewファイル内に記述
   :javascript
     var payjp_form = $(".payjp-form");
     var payjp_key = payjp_form.find('input[name="pay_key"]').val();
