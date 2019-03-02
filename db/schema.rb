@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_26_074248) do
+ActiveRecord::Schema.define(version: 2019_03_02_025332) do
 
   create_table "brand_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 2019_02_26_074248) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "payjp_token"
     t.index ["user_id"], name: "index_credits_on_user_id"
   end
 
@@ -79,6 +80,15 @@ ActiveRecord::Schema.define(version: 2019_02_26_074248) do
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 
+  create_table "orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "item_id", null: false
+    t.bigint "trading_partner_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_orders_on_item_id"
+    t.index ["trading_partner_id"], name: "index_orders_on_trading_partner_id"
+  end
+
   create_table "profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "nickname"
     t.text "body"
@@ -89,7 +99,7 @@ ActiveRecord::Schema.define(version: 2019_02_26_074248) do
     t.integer "birth_year"
     t.integer "birth_month"
     t.integer "birth_day"
-    t.integer "phone_number"
+    t.string "phone_number"
     t.integer "zipcode"
     t.integer "prefecture"
     t.string "city"
@@ -122,6 +132,15 @@ ActiveRecord::Schema.define(version: 2019_02_26_074248) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "trading_partners", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "buyer_id", null: false
+    t.bigint "seller_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["buyer_id"], name: "index_trading_partners_on_buyer_id"
+    t.index ["seller_id"], name: "index_trading_partners_on_seller_id"
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "nickname", default: "", null: false
     t.string "email", default: "", null: false
@@ -141,6 +160,10 @@ ActiveRecord::Schema.define(version: 2019_02_26_074248) do
   add_foreign_key "items", "categories"
   add_foreign_key "items", "sizes"
   add_foreign_key "items", "users"
+  add_foreign_key "orders", "items"
+  add_foreign_key "orders", "trading_partners"
   add_foreign_key "profiles", "users"
   add_foreign_key "sns_credentials", "users"
+  add_foreign_key "trading_partners", "users", column: "buyer_id"
+  add_foreign_key "trading_partners", "users", column: "seller_id"
 end

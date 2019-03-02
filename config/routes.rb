@@ -29,7 +29,7 @@ Rails.application.routes.draw do
 
     # トランザクション
     namespace :transaction do
-      resources :buy, only: [:show]
+      resources :buy, only: [:show, :create]
     end
 
     # TODO:仮のURIを修正

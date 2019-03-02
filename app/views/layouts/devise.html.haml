@@ -18,3 +18,5 @@
     -# フッター
     %footer.devise-footer
       = render partial: "devise/footer"
+    -# Pay.jp
+    = yield :payjp if content_for?(:payjp)
