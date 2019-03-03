@@ -1,6 +1,6 @@
 %li.categories__box__list
   %h3.categories__box__list__head{ id: "category-#{top.id}" }= top.name
-  %ul.categories__box__list__content
+  .categories__box__list__content
     .categories__link-box
       = link_to 'すべて', category_path(top), class: 'categories__link-individual'
     - top.children.each do |middle|
