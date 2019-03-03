@@ -1,0 +1,62 @@
+-# ページタイトル
+- content_for(:title) { '購入完了 - メルカリ サンプル' }
+
+-# コンテンツ
+.payment
+  .payment--complete
+    .payment--complete__alert
+      %i.far.fa-clock
+      %span 発送をお待ちください
+    .payment--complete__body 出品者からの発送通知をお待ちください
+
+  %h2.payment__head 購入が完了しました
+  -# 商品名・画像
+  .payment__group
+    .payment__group__content
+      = @images.present? ? (image_tag @images.first.name.url, alt: '商品画像', class: 'payment__group__content__item-image') : (image_tag 'common/no_image.png', alt: '画像がありません', class: 'payment__group__content__item-image')
+      %h3.payment__group__content__item-head= @item.name
+
+  -# 支払代金
+  .payment__group
+    .payment__group__content
+      .payment__group__content__item
+        %span.payment__group__content__item__price= "¥ #{number_with_delimiter(@item.price)}"
+        %span.payment__group__content__item__fee= (@item.shipping_fee == "including_postage") ? "送料込み" : "着払い"
+
+  -# 配送先情報
+  .payment__group
+    .payment__group__content
+      %h3.payment__group__content__head 配送先
+      .payment__group__content__info= "〒 #{@profile.set_hyphen}"
+      .payment__group__content__info= @profile.set_address
+      .payment__group__content__info= @profile.set_fullname
+      = link_to mypage_identification_path, class: 'payment__group__content__another-link' do
+        %span 変更する
+        %i.fas.fa-chevron-right
+
+  -# クレジットカード情報
+  .payment__group
+    .payment__group__content
+      %h3.payment__group__content__head 支払い方法
+      .payment__group__content__info= @credit_card.hide_numbers
+      .payment__group__content__info= "#{@credit_card.month} / #{@credit_card.year}"
+      = image_tag "common/#{@credit_card.get_type}.svg", alt: "#{@credit_card.get_type}", class: 'payment__group__content__image' if @credit_card.get_type.present?
+      = link_to mypage_card_index_path, class: 'payment__group__content__another-link' do
+        %span 変更する
+        %i.fas.fa-chevron-right
+
+  -# 購入後の流れ
+  .payment__group
+    .payment__group__notice
+      %h3.payment__group__notice__head 発送通知後の流れ
+      .payment__group__notice__review
+        %i.fas.fa-laugh-beam
+        %i.fas.fa-meh
+        %i.fas.fa-frown
+      %p.payment__group__notice__body 商品を受け取ったら
+      %p.payment__group__notice__body 出品者の評価をしましょう。
+      %p.payment__group__notice__body 購入代金が出品者に振り込まれます。
+      %p.payment__group__notice__body 評価後に取引は完了です。
+    .payment__group__notice
+      = link_to 'マイページへもどる', mypage_top_path, class: 'payment__group__notice__link'
+

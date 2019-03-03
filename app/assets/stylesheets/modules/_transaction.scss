@@ -171,5 +171,90 @@
         }
       }
     }
+
+    &__notice {
+      width: 320px;
+      margin: 0 auto;
+
+      &:last-of-type {
+        margin-top: 16px;
+        @include flex-horizontal-center;
+      }
+
+      &__head {
+        margin-bottom: 8px;
+        color: $black;
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 1;
+        text-align: center;
+      }
+
+      &__review {
+        width: 100%;
+        @include flex-horizontal-center;
+
+        i {
+          display: block;
+          margin: 8px 4px;
+          color: #fba933;
+          font-size: 20px;
+          line-height: 1;
+          vertical-align: middle;
+
+          &:first-of-type {
+            color: #ef5185;
+          }
+
+          &:last-of-type {
+            color: #6ab5d8;
+          }
+        }
+      }
+
+      &__body {
+        width: 100%;
+        font-size: 14px;
+        text-align: center;
+
+        &:first-of-type {
+          margin-top: 8px;
+        }
+      }
+
+      &__link {
+        color: $light-blue;
+        font-size: 14px;
+        font-weight: bold;
+        @include hover;
+      }
+    }
+  }
+
+  &--complete {
+    width: 100%;
+    padding: 30px;
+    background-color: #fff7de;
+
+    &__alert {
+      margin: 0 auto;
+      color: $red;
+      @include flex-center;
+
+      i {
+        font-size: 32px;
+      }
+
+      span {
+        margin-left: 8px;
+        font-weight: bold;
+      }
+    }
+
+    &__body {
+      margin-top: 8px;
+      font-size: 14px;
+      @include flex-horizontal-center;
+    }
   }
 }
