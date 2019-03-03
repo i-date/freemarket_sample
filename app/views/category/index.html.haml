@@ -1,0 +1,14 @@
+-# ページタイトル
+- content_for(:title) { 'カテゴリー一覧 - メルカリ サンプル' }
+
+-# パンくずリスト
+- breadcrumb :category
+
+-# メインコンテンツ
+.categories
+  %h2.categories__head カテゴリー一覧
+  %nav.categories__list
+    - @categories.each do |category|
+      = link_to category.name, "#category-#{category.id}", class: 'categories__list__link'
+  %ul.categories__box
+    = render partial: 'list', collection: @categories, as: 'top'
