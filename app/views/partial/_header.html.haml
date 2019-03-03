@@ -10,15 +10,13 @@
 
   .header__container__bottom
     %nav.header__container__bottom__nav
-      -# TODO:link修正
       .header__container__bottom__nav__category.accordion
-        = link_to 'カテゴリーから探す', '#', class: 'header__container__bottom__nav__category__link'
+        = link_to 'カテゴリーから探す', category_index_path, class: 'header__container__bottom__nav__category__link'
         .accordion__level
           %ul.level-1
             = render partial: 'partial/accordion', collection: @categories, as: 'category'
-            -# カテゴリー一覧追加
             %li.level-1__list
-              = link_to 'カテゴリー一覧', '#', class: 'level-1__list__item'
+              = link_to 'カテゴリー一覧', category_index_path, class: 'level-1__list__item'
       .header__container__bottom__nav__brand.accordion
         = link_to 'ブランドから探す', '#', class: 'header__container__bottom__nav__brand__link'
         .accordion__level

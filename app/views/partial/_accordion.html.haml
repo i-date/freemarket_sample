@@ -1,14 +1,11 @@
 -# TODO:リンクをcategoryモデルに対応
 %li.level-1__list
-  = link_to '#', class: 'level-1__list__item' do
-    = category.name
+  = link_to "#{category.name}", category_path(category), class: 'level-1__list__item'
   %ul.level-2
     - category.children.each do |child|
       %li.level-2__list
-        = link_to '#', class: 'level-2__list__item' do
-          = child.name
+        = link_to "#{child.name}", category_path(child), class: 'level-2__list__item'
         %ul.level-3
           - child.children.each do |grandchild|
             %li.level-3__list
-              = link_to '#', class: 'level-3__list__item' do
-                = grandchild.name
+              = link_to "#{grandchild.name}", category_path(grandchild), class: 'level-3__list__item'
