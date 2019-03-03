@@ -1,5 +1,5 @@
 class Transaction::OrderStatusController < ApplicationController
-  before_action :authenticate_user!, only: [:show, :create]
+  before_action :authenticate_user!, only: :show
   layout 'devise'
 
   def show
