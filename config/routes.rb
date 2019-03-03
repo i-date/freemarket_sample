@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     post 'sell',   to: 'items#create', as: :create_item
     get  'search', to: 'items#search', as: :search_items
     resources :items, only: [:show, :edit, :update, :destroy]
+    resources :category, only: [:index, :show]
 
     # トランザクション
     namespace :transaction do

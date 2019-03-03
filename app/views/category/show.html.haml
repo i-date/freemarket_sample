@@ -1,0 +1,29 @@
+-# ページタイトル
+- content_for(:title) { 'カテゴリー一覧 - メルカリ サンプル' }
+
+-# パンくずリスト
+- if @category_level == 'top'
+  - breadcrumb :top_category, @category
+- elsif @category_level == 'middle'
+  - breadcrumb :middle_category, @category
+- else
+  - breadcrumb :bottom_category, @category
+
+-# メインコンテンツ
+.category
+  -# 子カテゴリーへのリンク
+  - if @category.children.present?
+    .category__children
+      - @category.children.each do |child|
+        = link_to "#{child.name}", category_path(child), class: 'category__children__link'
+  -# 商品一覧
+  %h2.category__head= "#{@category.name}の商品一覧"
+  .category__content
+    = render partial: 'partial/card', collection: @items, as: 'item'
+  -# コンテンツ最下部ラベル
+  - if @category_level == 'top'
+    %h2.category__label= "#{@category.name}"
+  - elsif @category_level == 'middle'
+    %h2.category__label= "#{@category.name}（#{@category.parent.name}）"
+  - else
+    %h2.category__label= "#{@category.name}（#{@category.grandparent.name}）"

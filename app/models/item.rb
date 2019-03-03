@@ -66,7 +66,7 @@ class Item < ApplicationRecord
   scope :get_next_item, -> (item) { where("id > ?", item.id).order("id ASC") }
   scope :get_previous_item, -> (item) { where("id < ?", item.id).order("id DESC") }
   scope :get_user_items, -> (item) { where(user_id: item.user_id).sort_update_desc }
-  scope :get_category_items, -> (item) { where(category_id: item.category_id).sort_update_desc }
+  scope :get_category_items, -> (category_id) { where(category_id: category_id).sort_update_desc }
 
   # 検索用
   def self.sort_select_list

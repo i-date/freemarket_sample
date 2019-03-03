@@ -29,7 +29,7 @@ class ItemsController < ApplicationController
     @next_item = Item.get_next_item(@item).first
     @prev_item = Item.get_previous_item(@item).first
     @user_items = Item.get_user_items(@item).limit(3).includes(:images)
-    @category_items = Item.get_category_items(@item).limit(3).includes(:images)
+    @category_items = Item.get_category_items(@item.category_id).limit(3).includes(:images)
     @images = @item.images
   end
 

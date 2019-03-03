@@ -1,0 +1,13 @@
+%li.categories__box__list
+  %h3.categories__box__list__head{ id: "category-#{top.id}" }= top.name
+  .categories__box__list__content
+    .categories__link-box
+      = link_to 'すべて', category_path(top), class: 'categories__link-individual'
+    - top.children.each do |middle|
+      %h4.categories__box__list__content__subhead= middle.name
+      .categories__box__list__content__subboox
+        .categories__link-box
+          = link_to 'すべて', category_path(middle), class: 'categories__link-individual'
+        - middle.children.each do |bottom|
+          .categories__link-box
+            = link_to bottom.name, category_path(bottom), class: 'categories__link-individual'
