@@ -17,7 +17,7 @@ class Transaction::BuyController < ApplicationController
         raise
       end
     end
-    redirect_to root_path
+    redirect_to transaction_order_status_path(@item)
 
     # 購入処理に失敗した場合
     rescue => e

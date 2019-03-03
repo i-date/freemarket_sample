@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     # トランザクション
     namespace :transaction do
       resources :buy, only: [:show, :create]
+      resources :order_status, only: :show
     end
 
     # TODO:仮のURIを修正
