@@ -2,6 +2,6 @@
   .item-top__head
     =link_to "#{word} 新着アイテム", '#'
   .item-top__content
-    = render partial: 'partial/card', collection: @items, as: 'item'
+    = render partial: 'partial/card', collection: items, as: 'item'
   .item-top--all
     =link_to 'すべての商品を見る', '#'

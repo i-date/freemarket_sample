@@ -88,4 +88,47 @@ class Item < ApplicationRecord
   def self.status_check_list
     { "0": 'すべて', "1": '販売中', "2,3": '売り切れ' }
   end
+
+  # トップページアイテム取得
+  def self.get_id_range(categories)
+    start_id = categories.first.id
+    end_id = categories.last.id
+    Range.new(categories.first.id, categories.last.id)
+  end
+
+  def self.get_ladies
+    categories = Category.find(1).grandchildren
+    ladies = get_category_items(get_id_range(categories)).sort_update_desc
+  end
+
+  def self.get_mens
+    categories = Category.find(2).grandchildren
+    mens = get_category_items(get_id_range(categories)).sort_update_desc
+  end
+
+  def self.get_kids
+    categories = Category.find(3).grandchildren
+    kids = get_category_items(get_id_range(categories)).sort_update_desc
+  end
+
+  def self.get_cosme
+    categories = Category.find(7).grandchildren
+    cosme = get_category_items(get_id_range(categories)).sort_update_desc
+  end
+
+  def self.get_chanel
+    chanel = Item.where(brand: 'シャネル').sort_update_desc
+  end
+
+  def self.get_louisvuitton
+    louisvuitton = Item.where(brand: 'ルイ ヴィトン').sort_update_desc
+  end
+
+  def self.get_supreme
+    supreme = Item.where(brand: 'シュプリーム').sort_update_desc
+  end
+
+  def self.get_nike
+    nike = Item.where(brand: 'ナイキ').sort_update_desc
+  end
 end
