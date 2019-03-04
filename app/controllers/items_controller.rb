@@ -5,7 +5,14 @@ class ItemsController < ApplicationController
   layout 'devise', only: [:new, :create, :edit, :update]
 
   def index
-    @items = Item.sort_update_desc.limit(4).includes(:images)
+    @ladies_items = Item.get_ladies.limit(4).includes(:images)
+    @mens_items = Item.get_mens.limit(4).includes(:images)
+    @kids_items = Item.get_kids.limit(4).includes(:images)
+    @cosme_items = Item.get_cosme.limit(4).includes(:images)
+    @chanel_items = Item.get_chanel.limit(4).includes(:images)
+    @louisvuitton_items = Item.get_louisvuitton.limit(4).includes(:images)
+    @supreme_items = Item.get_supreme.limit(4).includes(:images)
+    @nike_items = Item.get_nike.limit(4).includes(:images)
     @none_breadcrumbs_flag = true;
   end
 
