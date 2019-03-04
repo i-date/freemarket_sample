@@ -30,11 +30,17 @@
 -# コンテンツ
 .pickup
   %h2.pickup-top ピックアップカテゴリー
-  = render partial: 'partial/item-top', locals: { word: 'カテゴリー' }
+  = render partial: 'partial/item-top', locals: { items: @ladies_items, word: 'レディース' }
+  = render partial: 'partial/item-top', locals: { items: @mens_items, word: 'メンズ' }
+  = render partial: 'partial/item-top', locals: { items: @kids_items, word: 'ベビー・キッズ' }
+  = render partial: 'partial/item-top', locals: { items: @cosme_items, word: 'コスメ・香水・美容' }
 
 .pickup
   %h2.pickup-top ピックアップブランド
-  = render partial: 'partial/item-top', locals: { word: 'ブランド' }
+  = render partial: 'partial/item-top', locals: { items: @chanel_items, word: 'シャネル' }
+  = render partial: 'partial/item-top', locals: { items: @louisvuitton_items, word: 'ルイ ヴィトン' }
+  = render partial: 'partial/item-top', locals: { items: @supreme_items, word: 'シュプリーム' }
+  = render partial: 'partial/item-top', locals: { items: @nike_items, word: 'ナイキ' }
 
 -# メインスライド用JS（Swiperで実装）
 :javascript
