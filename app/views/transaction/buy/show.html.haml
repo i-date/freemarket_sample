@@ -48,7 +48,7 @@
           - if @credit_card.present?
             .payment__group__content__item__registration--already 支払い方法を登録する
           - else
-            = link_to '支払い方法を登録する', mypage_identification_path, class: 'payment__group__content__item__registration' if @credit_card.blank?
+            = link_to '支払い方法を登録する', mypage_card_index_path, class: 'payment__group__content__item__registration' if @credit_card.blank?
       .payment__group__content__app アプリをお持ちでない方は以下よりインストールしてご利用いただけます。
       .payment__group__content__item__store-image
         = image_tag 'common/app-store.svg', alt: 'App Store'
