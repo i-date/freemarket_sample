@@ -86,6 +86,7 @@ gem 'devise-i18n'
 gem 'devise-i18n-views'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
+gem "omniauth-rails_csrf_protection"
 gem 'recaptcha', require: "recaptcha/rails"
 gem 'rack-cors'
 gem 'enum_help'
